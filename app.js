@@ -942,7 +942,8 @@ function updateStats() {
     people:  murals.reduce((s,m)=>s+Number(m.people),0),
     murals:  murals.length,
     strategies: murals.reduce((s,m)=>s+m.actions.filter(Boolean).length,0),
-    cities:  new Set(murals.map(m=>m.city)).size
+    cities:  new Set(murals.map(m=>m.city)).size,
+    nres:    new Set(murals.map(m=>m.nre).filter(Boolean)).size
   };
   Object.entries(stats).forEach(([k,v])=>$$(`[data-stat="${k}"]`).forEach(el=>el.textContent=format(v)));
 }
@@ -987,7 +988,7 @@ function renderDashboard() {
   const nres={};
   murals.forEach(m=>nres[m.nre]=(nres[m.nre]||0)+1);
   const max=Math.max(...Object.values(nres),1);
-  $('#bar-chart').innerHTML=Object.entries(nres).sort((a,b)=>b[1]-a[1]).slice(0,8)
+  $('#bar-chart').innerHTML=Object.entries(nres).sort((a,b)=>b[1]-a[1]).slice(0,32)
     .map(([name,count])=>`<div class="bar-row"><span>${escapeHtml(name)}</span>
       <div class="bar-track"><div class="bar-fill" style="width:${count/max*100}%"></div></div>
       <b>${count}</b></div>`).join('');
