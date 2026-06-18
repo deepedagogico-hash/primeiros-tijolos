@@ -988,12 +988,15 @@ function renderGallery() {
 /* ── 11. DASHBOARD ── */
 function renderDashboard() {
   const counts={};
+  const normFn = s => s.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const displayRanking = {};
   murals.flatMap(m=>m.actions).filter(Boolean).forEach(a=>{
-    const k=a.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-    counts[k]=(counts[k]||0)+1;
-});
+    const k = normFn(a);
+    counts[k] = (counts[k]||0) + 1;
+    if (!displayRanking[k]) displayRanking[k] = a.trim();
+  });
   $('#ranking-list').innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5)
-    .map(([name,count],i)=>`<li><b>0${i+1}</b><span>${escapeHtml(name)}</span><small>${count}×</small></li>`).join('')
+    .map(([name,count],i)=>`<li><b>0${i+1}</b><span>${escapeHtml(displayRanking[name]||name)}</span><small>${count}×</small></li>`).join('')
     ||'<li><span style="color:#999">Aguardando registros...</span></li>';
   const nres={};
   murals.forEach(m=>nres[m.nre]=(nres[m.nre]||0)+1);
@@ -1011,18 +1014,26 @@ function renderWordCloud() {
   const counts = {};
 
   const norm = s => s.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const display = {};
 
   // Ações (tags) — peso 3
   murals.flatMap(m => m.actions).filter(Boolean).forEach(w => {
     const k = norm(w);
-    if (k.length > 3 && !STOPWORDS.has(k)) counts[k] = (counts[k] || 0) + 3;
+    if (k.length > 3 && !STOPWORDS.has(k)) {
+      counts[k] = (counts[k] || 0) + 3;
+      if (!display[k]) display[k] = w.trim();
+    }
   });
 
   // Palavras das frases de ação — peso 1
   murals.map(m => m.action).filter(Boolean).forEach(phrase => {
     phrase.split(/\s+/).forEach(raw => {
-      const w = norm(raw.replace(/[^a-záéíóúãõâêôçü]/gi, ''));
-      if (w.length > 4 && !STOPWORDS.has(w)) counts[w] = (counts[w] || 0) + 1;
+      const cleaned = raw.replace(/[^a-záéíóúãõâêôçü]/gi, '');
+      const k = norm(cleaned);
+      if (k.length > 4 && !STOPWORDS.has(k)) {
+        counts[k] = (counts[k] || 0) + 1;
+        if (!display[k]) display[k] = cleaned;
+      }
     });
   });
 
@@ -1043,7 +1054,7 @@ function renderWordCloud() {
   const max = words[0][1];
   const minSize = 14, maxSize = 64;
   const list = words.map(([word, count]) => [
-    word,
+    display[word] || word,
     Math.round(minSize + (count / max) * (maxSize - minSize))
   ]);
 
