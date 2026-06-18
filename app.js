@@ -971,10 +971,10 @@ function renderGallery() {
   const nre=$('#filter-nre').value, city=$('#filter-city').value, stage=$('#filter-stage').value;
   const visible=murals.filter(m=>(nre==='all'||m.nre===nre)&&(city==='all'||m.city===city)&&(stage==='all'||m.stage===stage));
   $('#gallery-grid').innerHTML=visible.map(m=>`
-    <article class="mural-card">
+    <article class="mural-card" role="listitem" aria-label="${escapeHtml(m.school)}, ${escapeHtml(m.city)}, NRE ${escapeHtml(m.nre)}">
       <div class="card-photo" style="background-color:var(--${m.color||'blue'})">
-        ${m.photo?`<img src="${m.photo}" alt="Mural da ${escapeHtml(m.school)}">`:''}
-        <span>${format(m.people)} participantes</span>
+        ${m.photo?`<img src="${m.photo}" alt="Foto do mural da escola ${escapeHtml(m.school)}, de ${escapeHtml(m.city)}">`:'<span aria-hidden="true"></span>'}
+        <span aria-label="${format(m.people)} participantes">${format(m.people)} participantes</span>
       </div>
       <div class="card-body">
         <span class="card-place">${escapeHtml(m.city)} · NRE ${escapeHtml(m.nre)}</span>

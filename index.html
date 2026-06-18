@@ -27,7 +27,7 @@
       <a href="#mapa">Mapa</a>
       <a href="#indicadores">Indicadores</a>
       <a href="#materiais">Materiais</a>
-      <button class="button button-small open-form" type="button">Enviar mural</button>
+      <button class="button button-small open-form" type="button" aria-label="Abrir formulário para enviar mural da escola">Enviar mural</button>
     </nav>
   </header>
 
@@ -39,7 +39,7 @@
         <p class="lead">Da reflexão à ação: construindo pontes para a aprendizagem.</p>
         <p class="hero-text">Cada registro é uma ideia que ganhou forma — e um compromisso coletivo para tornar a aprendizagem mais acessível, significativa e inclusiva.</p>
         <div class="hero-actions">
-          <button class="button open-form" type="button">Enviar mural <span>↗</span></button>
+          <button class="button open-form" type="button" aria-label="Abrir formulário para enviar mural da escola">Enviar mural <span aria-hidden="true">↗</span></button>
           <a class="text-link" href="#galeria">Explorar a galeria <span>↓</span></a>
         </div>
       </div>
@@ -51,10 +51,10 @@
         <div class="pencil" aria-hidden="true"></div>
       </div>
       <div class="stats" aria-label="Números do projeto">
-        <article><span class="stat-icon">⌂</span><div><strong data-stat="schools">0</strong><small>escolas participantes</small></div></article>
-        <article><span class="stat-icon">◉</span><div><strong data-stat="people">0</strong><small>participantes envolvidos</small></div></article>
-        <article><span class="stat-icon">▦</span><div><strong data-stat="murals">0</strong><small>murais compartilhados</small></div></article>
-        <article><span class="stat-icon">✦</span><div><strong data-stat="strategies">0</strong><small>estratégias registradas</small></div></article>
+        <article><span class="stat-icon" aria-hidden="true">⌂</span><div><strong data-stat="schools">0</strong><small>escolas participantes</small></div></article>
+        <article><span class="stat-icon" aria-hidden="true">◉</span><div><strong data-stat="people">0</strong><small>participantes envolvidos</small></div></article>
+        <article><span class="stat-icon" aria-hidden="true">▦</span><div><strong data-stat="murals">0</strong><small>murais compartilhados</small></div></article>
+        <article><span class="stat-icon" aria-hidden="true">✦</span><div><strong data-stat="strategies">0</strong><small>estratégias registradas</small></div></article>
       </div>
     </section>
 
@@ -90,7 +90,7 @@
         <label><span>Etapa</span><select id="filter-stage"><option value="all">Todas as etapas</option></select></label>
         <button id="clear-filters" type="button">Limpar filtros</button>
       </div>
-      <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+      <div class="gallery-grid" id="gallery-grid" role="list" aria-live="polite" aria-label="Galeria de murais das escolas participantes"></div>
       <p class="empty-state" id="empty-state" hidden>Nenhum mural encontrado com estes filtros.</p>
     </section>
 
@@ -127,11 +127,11 @@
         <p class="eyebrow light">Destaques da Rede</p>
         <h2>Experiências que<br>abrem novas portas.</h2>
         <p class="highlight-lead">Criatividade, colaboração e compromisso transformam uma ação local em inspiração para todo o Paraná.</p>
-        <div class="criteria">
-          <article><span>01</span><b>Participação coletiva</b><p>A comunidade aprende e constrói junta.</p></article>
-          <article><span>02</span><b>Originalidade</b><p>Novos olhares para desafios reais.</p></article>
-          <article><span>03</span><b>Potencial de replicação</b><p>Boas ideias que podem viajar.</p></article>
-          <article><span>04</span><b>Contribuição para inclusão</b><p>Menos barreiras, mais oportunidades.</p></article>
+        <div class="criteria" role="list">
+          <article role="listitem"><span aria-hidden="true">01</span><b>Participação coletiva</b><p>A comunidade aprende e constrói junta.</p></article>
+          <article role="listitem"><span aria-hidden="true">02</span><b>Originalidade</b><p>Novos olhares para desafios reais.</p></article>
+          <article role="listitem"><span aria-hidden="true">03</span><b>Potencial de replicação</b><p>Boas ideias que podem viajar.</p></article>
+          <article role="listitem"><span aria-hidden="true">04</span><b>Contribuição para inclusão</b><p>Menos barreiras, mais oportunidades.</p></article>
         </div>
       </div>
     </section>
@@ -153,7 +153,7 @@
   </main>
 
   <footer>
-    <div class="footer-callout"><div><small>Seu mural já está pronto?</small><strong>Coloque mais um tijolo nessa construção.</strong></div><button class="button button-light open-form" type="button">Enviar mural <span>↗</span></button></div>
+    <div class="footer-callout"><div><small>Seu mural já está pronto?</small><strong>Coloque mais um tijolo nessa construção.</strong></div><button class="button button-light open-form" type="button" aria-label="Abrir formulário para enviar mural da escola">Enviar mural <span aria-hidden="true">↗</span></button></div>
     <div class="footer-bottom"><div class="brand brand-footer"><span class="brand-mark"><i></i><i></i><i></i></span><span><b>Primeiros Tijolos</b><small>Da reflexão à ação</small></span></div><p>Departamento de Educação Inclusiva – DEIN<br>Secretaria de Estado da Educação do Paraná – SEED/PR</p><p>Estudo e Planejamento · 2026</p></div>
   </footer>
 
@@ -300,12 +300,13 @@
           </select>
         </label>
         <label><span>NRE</span>
-          <input name="nre" readonly placeholder="Preenchido automaticamente" style="background:#f0f0f0;cursor:not-allowed">
+          <input name="nre" readonly placeholder="Preenchido automaticamente" style="background:#f0f0f0;cursor:not-allowed" aria-describedby="nre-hint" aria-label="NRE — preenchido automaticamente ao selecionar o município">
+          <small id="nre-hint" style="display:none">Preenchido automaticamente conforme o município selecionado.</small>
         </label>
         <label class="wide"><span>Nome da escola *</span><input name="school" required placeholder="Nome completo da instituição"></label>
         <label><span>Etapa de ensino *</span><select name="stage" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>EJA</option><option>Educação Especial</option></select></label>
         <label><span>Quantidade de participantes *</span><input name="people" type="number" min="1" required placeholder="0"></label>
-        <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required><small>JPG ou PNG. Evite imagens com dados pessoais.</small></label>
+        <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required aria-describedby="photo-hint"><small id="photo-hint">JPG ou PNG. Evite imagens com dados pessoais.</small></label>
         <label class="wide"><span>Ação mais citada *</span><input name="action1" required placeholder="Ex.: Ampliar formas de expressão"></label>
         <label><span>Segunda ação mais citada</span><input name="action2"></label>
         <label><span>Terceira ação mais citada</span><input name="action3"></label>
@@ -313,7 +314,7 @@
         <label><span>Responsável pelo envio *</span><input name="owner" required></label>
         <label><span>E-mail institucional *</span><input name="email" type="email" required placeholder="nome@escola.pr.gov.br"></label>
       </div>
-      <label class="consent"><input type="checkbox" required> <span>Confirmo que a imagem não contém dados pessoais e autorizo sua publicação institucional.</span></label>
+      <label class="consent"><input type="checkbox" required aria-required="true"> <span>Confirmo que a imagem não contém dados pessoais e autorizo sua publicação institucional.</span></label>
       <button class="button submit-button" type="submit">Enviar participação <span>↗</span></button>
     </form>
   </dialog>
