@@ -969,20 +969,42 @@ function fillFilters() {
 /* ── 10. GALERIA ── */
 function renderGallery() {
   const nre=$('#filter-nre').value, city=$('#filter-city').value, stage=$('#filter-stage').value;
-  const visible=murals.filter(m=>(nre==='all'||m.nre===nre)&&(city==='all'||m.city===city)&&(stage==='all'||m.stage===stage));
+  const visible=murals
+    .filter(m=>(nre==='all'||m.nre===nre)&&(city==='all'||m.city===city)&&(stage==='all'||m.stage===stage))
+    .sort((a,b)=>Number(b.people)-Number(a.people));
   $('#gallery-grid').innerHTML=visible.map(m=>`
     <article class="mural-card" role="listitem" aria-label="${escapeHtml(m.school)}, ${escapeHtml(m.city)}, NRE ${escapeHtml(m.nre)}">
-      <div class="card-photo" style="background-color:var(--${m.color||'blue'})">
+      <div class="card-photo" style="background-color:var(--${m.color||'blue'})"
+        ${m.photo?`onclick="openLightbox('${m.photo.replace(/'/g,"\\'")}','${escapeHtml(m.school).replace(/'/g,"\\'")}','${escapeHtml(m.city).replace(/'/g,"\\'")}','${escapeHtml(m.nre).replace(/'/g,"\\'")}','${escapeHtml(m.action).replace(/'/g,"\\'")}','${format(m.people)}')" role="button" tabindex="0" aria-label="Ver foto ampliada do mural da ${escapeHtml(m.school)}" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()" style="cursor:pointer;background-color:var(--${m.color||'blue'})"`:''}>
         ${m.photo?`<img src="${m.photo}" alt="Foto do mural da escola ${escapeHtml(m.school)}, de ${escapeHtml(m.city)}">`:'<span aria-hidden="true"></span>'}
         <span aria-label="${format(m.people)} participantes">${format(m.people)} participantes</span>
       </div>
       <div class="card-body">
         <span class="card-place">${escapeHtml(m.city)} · NRE ${escapeHtml(m.nre)}</span>
         <h3>${escapeHtml(m.school)}</h3>
-        <div class="card-action"><small>Ação destaque</small>"${escapeHtml(m.action)}"</div>
+        <div class="card-action"><small>Primeiro tijolo</small>"${escapeHtml(m.action)}"</div>
       </div>
     </article>`).join('');
   $('#empty-state').hidden=visible.length>0;
+}
+
+/* ── LIGHTBOX ── */
+function openLightbox(photo, school, city, nre, action, people) {
+  const lb = document.getElementById('lightbox');
+  lb.querySelector('.lb-img').src = photo;
+  lb.querySelector('.lb-img').alt = `Foto do mural da escola ${school}, de ${city}`;
+  lb.querySelector('.lb-school').textContent = school;
+  lb.querySelector('.lb-meta').textContent = `${city} · NRE ${nre} · ${people} participantes`;
+  lb.querySelector('.lb-action').textContent = `"${action}"`;
+  lb.removeAttribute('hidden');
+  lb.focus();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.setAttribute('hidden', '');
+  document.body.style.overflow = '';
 }
 
 /* ── 11. DASHBOARD ── */

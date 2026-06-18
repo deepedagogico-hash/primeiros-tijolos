@@ -306,7 +306,7 @@
         <label class="wide"><span>Nome da escola *</span><input name="school" required placeholder="Nome completo da instituição"></label>
         <label><span>Etapa de ensino *</span><select name="stage" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>EJA</option><option>Educação Especial</option></select></label>
         <label><span>Quantidade de participantes *</span><input name="people" type="number" min="1" required placeholder="0"></label>
-        <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required aria-describedby="photo-hint"><small id="photo-hint">JPG ou PNG. Evite imagens com dados pessoais.</small></label>
+        <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required aria-describedby="photo-hint"><small id="photo-hint">JPG ou PNG em orientação paisagem (horizontal). Evite imagens com dados pessoais.</small></label>
         <label class="wide"><span>Primeiro tijolo mais citado *</span><input name="action1" required placeholder="Ex.: Oferecer mais de uma forma de registro nas atividades" aria-describedby="action1-hint"><small id="action1-hint">Descreva uma ação concreta que sua equipe se comprometeu a experimentar — pequena, viável e intencional.</small></label>
         <label><span>Segundo tijolo mais citado</span><input name="action2" placeholder="Ex.: Ampliar as formas de participação oral"></label>
         <label><span>Terceiro tijolo mais citado</span><input name="action3" placeholder="Ex.: Planejar com diferentes níveis de apoio"></label>
@@ -318,6 +318,19 @@
       <button class="button submit-button" type="submit">Enviar participação <span>↗</span></button>
     </form>
   </dialog>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada do mural" tabindex="-1" onclick="if(event.target===this)closeLightbox()" onkeydown="if(event.key==='Escape')closeLightbox()">
+    <div class="lb-box">
+      <button class="lb-close" onclick="closeLightbox()" aria-label="Fechar foto">×</button>
+      <img class="lb-img" src="" alt="">
+      <div class="lb-info">
+        <strong class="lb-school"></strong>
+        <span class="lb-meta"></span>
+        <p class="lb-action"></p>
+      </div>
+    </div>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
