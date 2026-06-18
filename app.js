@@ -805,7 +805,11 @@ function getCityLatLng(cityName) {
 }
 
 function getNRE(cityName) {
-  return NRE_MAP[cityName] || '';
+  const normalized = cityName
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  return NRE_MAP[normalized] || '';
 }
 
 /* ── 3. DADOS DE EXEMPLO ── */
