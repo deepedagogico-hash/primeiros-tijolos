@@ -998,25 +998,62 @@ function renderDashboard() {
 /* ── 12. NUVEM DE PALAVRAS ── */
 const STOPWORDS = new Set(['de','a','o','e','da','do','as','os','em','para','com','por','que','se','na','no','um','uma','ao','dos','das','mais','ou','cada','seus','sua','entre','como','são','ser','ter','foi','há','está','não','isso','este','essa','nos','às','pelo','pela','todos','todas','muito','bem','seu','mais','uma','para']);
 function renderWordCloud() {
-  const counts={};
-  murals.flatMap(m=>m.actions).filter(Boolean).forEach(w=>{
-    const k=w.trim().toLowerCase(); if(k.length>3&&!STOPWORDS.has(k)) counts[k]=(counts[k]||0)+3;
+  const counts = {};
+
+  // Ações (tags) — peso 3
+  murals.flatMap(m => m.actions).filter(Boolean).forEach(w => {
+    const k = w.trim().toLowerCase();
+    if (k.length > 3 && !STOPWORDS.has(k)) counts[k] = (counts[k] || 0) + 3;
   });
-  murals.map(m=>m.action).filter(Boolean).forEach(phrase=>{
-    phrase.split(/\s+/).forEach(raw=>{
-      const w=raw.replace(/[^a-záéíóúãõâêôçü]/gi,'').toLowerCase();
-      if(w.length>4&&!STOPWORDS.has(w)) counts[w]=(counts[w]||0)+1;
+
+  // Palavras das frases de ação — peso 1
+  murals.map(m => m.action).filter(Boolean).forEach(phrase => {
+    phrase.split(/\s+/).forEach(raw => {
+      const w = raw.replace(/[^a-záéíóúãõâêôçü]/gi, '').toLowerCase();
+      if (w.length > 4 && !STOPWORDS.has(w)) counts[w] = (counts[w] || 0) + 1;
     });
   });
-  const words=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,18);
-  if(!words.length) return;
-  const max=words[0][1];
-  const tags=['span','b','strong','em','i','small'], rots=[0,-8,8,-4,4,0,-6,6];
-  const cloud=$('.word-cloud');
-  if(cloud) cloud.innerHTML=words.map(([word,count],i)=>{
-    const tag=tags[i%tags.length], size=Math.round(13+(count/max)*31);
-    return `<${tag} style="font-size:${size}px;transform:rotate(${rots[i%rots.length]}deg);display:inline-block">${escapeHtml(word)}</${tag}>`;
-  }).join(' ');
+
+  const words = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 60);
+  if (!words.length) return;
+
+  const canvas = document.getElementById('word-cloud-canvas');
+  if (!canvas) return;
+
+  // Ajustar canvas ao tamanho do painel pai
+  const panel = canvas.closest('.panel');
+  if (panel) {
+    canvas.width  = panel.offsetWidth  - 48; // descontar padding
+    canvas.height = panel.offsetHeight - 60; // descontar label
+  }
+
+  // Escala de tamanho proporcional
+  const max = words[0][1];
+  const minSize = 14, maxSize = 64;
+  const list = words.map(([word, count]) => [
+    word,
+    Math.round(minSize + (count / max) * (maxSize - minSize))
+  ]);
+
+  // Paleta alinhada ao design do site
+  const palette = ['#172921','#265b49','#173d32','#d7e84c','#102920'];
+
+  if (typeof WordCloud !== 'undefined') {
+    WordCloud(canvas, {
+      list,
+      gridSize:        Math.round(canvas.width / 60),
+      weightFactor:    1,
+      fontFamily:      'Manrope, DM Sans, sans-serif',
+      fontWeight:      '700',
+      color:           () => palette[Math.floor(Math.random() * palette.length)],
+      rotateRatio:     0.4,
+      rotationSteps:   3,        // horizontal, +45°, -45°
+      backgroundColor: 'transparent',
+      drawOutOfBound:  false,
+      shrinkToFit:     true,
+      shuffle:         true,
+    });
+  }
 }
 
 /* ── 13. EVENTOS ── */
@@ -1083,7 +1120,13 @@ $('#mural-form').addEventListener('submit', async event=>{
 function showToast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),3800)}
 
 /* ── 16. SCROLL REVEAL ── */
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.add('visible');
+    if(e.target.closest('#indicadores')) setTimeout(renderWordCloud,150);
+    observer.unobserve(e.target);
+  }
+}),{threshold:.08});
 $$('.reveal').forEach(el=>observer.observe(el));
 
 /* ── 17. INIT ── */

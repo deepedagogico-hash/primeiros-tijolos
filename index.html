@@ -118,7 +118,7 @@
         <article class="panel participation"><span class="panel-label">Participação</span><div class="big-number" data-stat="schools">0</div><p>escolas participantes</p><div class="mini-stats"><span><b data-stat="people">0</b> pessoas</span><span><b data-stat="cities">0</b> municípios</span><span><b data-stat="nres">0</b> NREs</span></div></article>
         <article class="panel ranking"><span class="panel-label">Estratégias mais citadas</span><ol id="ranking-list"></ol></article>
         <article class="panel bars"><span class="panel-label">Participação por NRE</span><div id="bar-chart"></div></article>
-        <article class="panel words"><span class="panel-label">Palavras que mobilizam</span><div class="word-cloud"><b>acolhimento</b><span>autonomia</span><strong>inclusão</strong><i>escuta</i><span>acessibilidade</span><em>colaboração</em><b>equidade</b><small>aprendizagem</small><i>pertencimento</i></div></article>
+        <article class="panel words"><span class="panel-label">Palavras que mobilizam</span><canvas id="word-cloud-canvas"></canvas></article>
       </div>
     </section>
 
@@ -321,6 +321,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
