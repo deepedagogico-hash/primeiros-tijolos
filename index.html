@@ -155,25 +155,6 @@
   <footer>
     <div class="footer-callout"><div><small>Seu mural já está pronto?</small><strong>Coloque mais um tijolo nessa construção.</strong></div><button class="button button-light open-form" type="button" aria-label="Abrir formulário para enviar mural da escola">Enviar mural <span aria-hidden="true">↗</span></button></div>
     <div class="footer-bottom"><div class="brand brand-footer"><span class="brand-mark"><i></i><i></i><i></i></span><span><b>Primeiros Tijolos</b><small>Da reflexão à ação</small></span></div><p>Departamento de Educação Inclusiva – DEIN<br>Secretaria de Estado da Educação do Paraná – SEED/PR</p><p>Estudo e Planejamento · 2026</p></div>
-    <div class="footer-a11y" role="contentinfo" aria-label="Informações de acessibilidade">
-      <div class="a11y-inner">
-        <span class="a11y-icon" aria-hidden="true">⌾</span>
-        <div class="a11y-content">
-          <strong>Acessibilidade</strong>
-          <p>Este site foi desenvolvido seguindo as diretrizes de acessibilidade digital para garantir uma experiência inclusiva a todos os usuários.</p>
-          <ul class="a11y-list" aria-label="Critérios de acessibilidade atendidos">
-            <li>Navegação completa por teclado</li>
-            <li>Compatível com leitores de tela</li>
-            <li>Contraste de cores adequado (WCAG 2.1 AA)</li>
-            <li>Textos alternativos em imagens</li>
-            <li>Estrutura semântica de cabeçalhos</li>
-            <li>Etiquetas descritivas em formulários</li>
-            <li>Link de salto para o conteúdo principal</li>
-          </ul>
-        </div>
-        <p class="a11y-ref">Baseado nas diretrizes <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1 e no <abbr title="Modelo de Acessibilidade em Governo Eletrônico">eMAG</abbr>.<br>Problemas de acessibilidade? Entre em contato com o <abbr title="Departamento de Educação Inclusiva">DEIN</abbr>.</p>
-      </div>
-    </div>
   </footer>
 
   <dialog id="mural-dialog">
@@ -326,10 +307,10 @@
         <label><span>Etapa de ensino *</span><select name="stage" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>EJA</option><option>Educação Especial</option></select></label>
         <label><span>Quantidade de participantes *</span><input name="people" type="number" min="1" required placeholder="0"></label>
         <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required aria-describedby="photo-hint"><small id="photo-hint">JPG ou PNG. Evite imagens com dados pessoais.</small></label>
-        <label class="wide"><span>Ação mais citada *</span><input name="action1" required placeholder="Ex.: Ampliar formas de expressão"></label>
-        <label><span>Segunda ação mais citada</span><input name="action2"></label>
-        <label><span>Terceira ação mais citada</span><input name="action3"></label>
-        <label class="wide"><span>Relato inspirador (até 300 caracteres)</span><textarea name="story" maxlength="300" rows="4"></textarea><small class="counter">0/300</small></label>
+        <label class="wide"><span>Primeiro tijolo mais citado *</span><input name="action1" required placeholder="Ex.: Oferecer mais de uma forma de registro nas atividades" aria-describedby="action1-hint"><small id="action1-hint">Descreva uma ação concreta que sua equipe se comprometeu a experimentar — pequena, viável e intencional.</small></label>
+        <label><span>Segundo tijolo mais citado</span><input name="action2" placeholder="Ex.: Ampliar as formas de participação oral"></label>
+        <label><span>Terceiro tijolo mais citado</span><input name="action3" placeholder="Ex.: Planejar com diferentes níveis de apoio"></label>
+        <label class="wide"><span>Relato inspirador (até 300 caracteres)</span><textarea name="story" maxlength="300" rows="4" placeholder="Compartilhe um momento marcante, uma fala da equipe ou uma ideia que ficou do encontro — algo que represente o compromisso da sua escola com a aprendizagem de todos."></textarea><small class="counter">0/300</small></label>
         <label><span>Responsável pelo envio *</span><input name="owner" required></label>
         <label><span>E-mail institucional *</span><input name="email" type="email" required placeholder="nome@escola.pr.gov.br"></label>
       </div>
