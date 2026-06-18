@@ -1037,7 +1037,11 @@ function renderWordCloud() {
     });
   });
 
-  const words = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 60);
+  // Só exibe palavras que aparecem em mais de uma escola (contagem > 1 nas ações, ou > 3 nas frases)
+  const words = Object.entries(counts)
+    .filter(([, count]) => count > 3)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 60);
   if (!words.length) return;
 
   const canvas = document.getElementById('word-cloud-canvas');
