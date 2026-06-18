@@ -1016,16 +1016,19 @@ function renderWordCloud() {
   const norm = s => s.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const display = {};
 
-  // Ações (tags) — peso 3
-  murals.flatMap(m => m.actions).filter(Boolean).forEach(w => {
-    const k = norm(w);
-    if (k.length > 3 && !STOPWORDS.has(k)) {
-      counts[k] = (counts[k] || 0) + 3;
-      if (!display[k]) display[k] = w.trim();
-    }
+  // Ações — sempre quebra em palavras individuais, peso 3 por palavra
+  murals.flatMap(m => m.actions).filter(Boolean).forEach(phrase => {
+    phrase.split(/\s+/).forEach(raw => {
+      const cleaned = raw.replace(/[^a-záéíóúãõâêôçü]/gi, '');
+      const k = norm(cleaned);
+      if (k.length > 3 && !STOPWORDS.has(k)) {
+        counts[k] = (counts[k] || 0) + 3;
+        if (!display[k]) display[k] = cleaned;
+      }
+    });
   });
 
-  // Palavras das frases de ação — peso 1
+  // Palavras das frases de ação principal — peso 1
   murals.map(m => m.action).filter(Boolean).forEach(phrase => {
     phrase.split(/\s+/).forEach(raw => {
       const cleaned = raw.replace(/[^a-záéíóúãõâêôçü]/gi, '');
