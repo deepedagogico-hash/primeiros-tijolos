@@ -119,9 +119,11 @@ async function loadFromSheets() {
 
 /* ── 4. ENVIAR PARA O SHEETS ── */
 async function sendToSheets(data) {
+  const form = new FormData();
+  form.append('payload', JSON.stringify(data));
   const res = await fetch(SCRIPT_URL, {
-    method:'POST', body:JSON.stringify(data),
-    headers:{'Content-Type':'application/json'}
+    method: 'POST',
+    body: form
   });
   if (!res.ok) throw new Error('Falha no envio');
   return res.json();
