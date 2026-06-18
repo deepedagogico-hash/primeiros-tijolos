@@ -1,920 +1,186 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mural Estadual dos Primeiros Tijolos – DEIN/SEED-PR</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --verde:   #1A4731;
-    --menta:   #3D9970;
-    --menta2:  #4CAF87;
-    --amber:   #E8961A;
-    --amber2:  #F5A623;
-    --cream:   #FAF7F2;
-    --white:   #FFFFFF;
-    --gray1:   #F2F0EC;
-    --gray2:   #D4CFC8;
-    --gray3:   #8A8480;
-    --dark:    #1C1A18;
-    --postit1: #FFE566;
-    --postit2: #AEE4FF;
-    --postit3: #FFB3C6;
-    --postit4: #B8F0C8;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--cream);
-    color: var(--dark);
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--verde);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 60px;
-    box-shadow: 0 2px 12px rgba(0,0,0,.25);
-  }
-  .nav-logo {
-    font-family: 'Fraunces', serif;
-    font-size: 1.05rem; font-weight: 700;
-    color: var(--white); text-decoration: none;
-    display: flex; align-items: center; gap: .5rem;
-  }
-  .nav-logo span { font-size: 1.3rem; }
-  .nav-links { display: flex; gap: .25rem; flex-wrap: wrap; }
-  .nav-links a {
-    color: rgba(255,255,255,.82); text-decoration: none;
-    font-size: .78rem; font-weight: 500; letter-spacing: .03em;
-    padding: .35rem .65rem; border-radius: 4px;
-    transition: background .18s, color .18s;
-  }
-  .nav-links a:hover { background: rgba(255,255,255,.15); color: #fff; }
-
-  /* ── HERO ── */
-  #inicio {
-    min-height: 100vh;
-    background: var(--verde);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 80px 2rem 4rem;
-    position: relative; overflow: hidden;
-  }
-
-  /* tijolo pattern SVG background */
-  #inicio::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='38' height='18' rx='2' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3Crect x='41' y='1' width='38' height='18' rx='2' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3Crect x='-19' y='21' width='38' height='18' rx='2' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3Crect x='21' y='21' width='38' height='18' rx='2' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3Crect x='61' y='21' width='38' height='18' rx='2' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3C/svg%3E");
-    background-size: 80px 40px;
-    pointer-events: none;
-  }
-
-  /* post-its flutuantes */
-  .postit-field {
-    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-  }
-  .postit {
-    position: absolute;
-    width: 90px; height: 90px;
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: .6rem; font-weight: 600;
-    text-align: center; padding: .5rem;
-    color: rgba(0,0,0,.55);
-    box-shadow: 3px 4px 12px rgba(0,0,0,.25);
-    animation: float linear infinite;
-    opacity: 0;
-  }
-  @keyframes float {
-    0%   { transform: translateY(0px) rotate(var(--r)) scale(.85); opacity: 0; }
-    8%   { opacity: .8; }
-    90%  { opacity: .7; }
-    100% { transform: translateY(-110vh) rotate(calc(var(--r) + 15deg)) scale(.85); opacity: 0; }
-  }
-
-  .hero-content { position: relative; z-index: 2; text-align: center; max-width: 780px; }
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: .5rem;
-    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
-    border-radius: 20px; padding: .35rem 1rem;
-    font-size: .78rem; font-weight: 600; letter-spacing: .08em;
-    color: var(--menta2); text-transform: uppercase; margin-bottom: 1.5rem;
-  }
-  .hero-title {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(2.4rem, 5vw, 4rem);
-    font-weight: 700; line-height: 1.1;
-    color: var(--white); margin-bottom: .75rem;
-  }
-  .hero-title em {
-    font-style: italic; color: var(--amber2);
-  }
-  .hero-subtitle {
-    font-size: 1.05rem; color: rgba(255,255,255,.72);
-    line-height: 1.65; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;
-  }
-
-  .stats-row {
-    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
-    margin-bottom: 2.5rem;
-  }
-  .stat-pill {
-    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
-    border-radius: 10px; padding: .85rem 1.4rem; text-align: center;
-    min-width: 130px;
-  }
-  .stat-pill strong {
-    display: block;
-    font-family: 'Fraunces', serif; font-size: 1.9rem;
-    color: var(--amber2); line-height: 1;
-  }
-  .stat-pill span { font-size: .72rem; color: rgba(255,255,255,.65); letter-spacing: .04em; }
-
-  .hero-btns { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--amber); color: var(--dark);
-    border: none; border-radius: 6px;
-    padding: .8rem 1.8rem; font-size: .9rem; font-weight: 600;
-    cursor: pointer; text-decoration: none;
-    transition: background .18s, transform .15s;
-    display: inline-flex; align-items: center; gap: .45rem;
-  }
-  .btn-primary:hover { background: var(--amber2); transform: translateY(-2px); }
-  .btn-outline {
-    background: transparent; color: var(--white);
-    border: 1.5px solid rgba(255,255,255,.4);
-    border-radius: 6px; padding: .8rem 1.8rem;
-    font-size: .9rem; font-weight: 500; cursor: pointer;
-    text-decoration: none;
-    transition: border-color .18s, background .18s, transform .15s;
-    display: inline-flex; align-items: center; gap: .45rem;
-  }
-  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,.08); transform: translateY(-2px); }
-
-  /* ── SECTION BASE ── */
-  section { padding: 5rem 2rem; }
-  .section-inner { max-width: 1080px; margin: 0 auto; }
-  .section-label {
-    font-size: .72rem; font-weight: 600; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--menta);
-    margin-bottom: .6rem;
-  }
-  .section-title {
-    font-family: 'Fraunces', serif; font-size: clamp(1.7rem, 3vw, 2.4rem);
-    font-weight: 700; color: var(--verde); line-height: 1.2;
-    margin-bottom: 1rem;
-  }
-  .section-lead { font-size: 1rem; color: var(--gray3); line-height: 1.7; max-width: 620px; }
-
-  /* ── COMO PARTICIPAR ── */
-  #como { background: var(--white); }
-
-  .steps-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.5rem; margin-top: 2.5rem;
-  }
-  .step-card {
-    background: var(--cream); border-radius: 10px;
-    padding: 1.5rem 1.25rem; position: relative;
-    border-top: 4px solid var(--menta2);
-    transition: transform .2s;
-  }
-  .step-card:hover { transform: translateY(-4px); }
-  .step-num {
-    font-family: 'Fraunces', serif; font-size: 2.5rem;
-    font-weight: 700; color: var(--menta2); line-height: 1;
-    margin-bottom: .5rem;
-  }
-  .step-card h3 { font-size: .88rem; font-weight: 600; color: var(--verde); margin-bottom: .35rem; }
-  .step-card p { font-size: .82rem; color: var(--gray3); line-height: 1.55; }
-
-  .orientacoes {
-    margin-top: 2.5rem;
-    background: var(--gray1); border-radius: 10px; padding: 1.75rem 2rem;
-    border-left: 4px solid var(--amber);
-  }
-  .orientacoes h3 { font-size: .9rem; font-weight: 600; color: var(--verde); margin-bottom: 1rem; }
-  .orientacoes ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
-  .orientacoes li { font-size: .88rem; color: var(--dark); display: flex; align-items: flex-start; gap: .6rem; }
-  .orientacoes li::before { content: '✓'; color: var(--menta); font-weight: 700; flex-shrink: 0; }
-
-  /* ── ENVIAR MURAL ── */
-  #enviar { background: var(--cream); }
-
-  .form-card {
-    background: var(--white); border-radius: 12px;
-    padding: 2.5rem; box-shadow: 0 4px 24px rgba(0,0,0,.07);
-    margin-top: 2rem; max-width: 720px;
-  }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-  .form-group { display: flex; flex-direction: column; gap: .4rem; }
-  .form-group.full { grid-column: 1 / -1; }
-  .form-group label { font-size: .78rem; font-weight: 600; color: var(--verde); letter-spacing: .04em; text-transform: uppercase; }
-  .form-group input, .form-group select, .form-group textarea {
-    border: 1.5px solid var(--gray2); border-radius: 6px;
-    padding: .65rem .85rem; font-size: .9rem; font-family: 'Inter', sans-serif;
-    color: var(--dark); background: var(--cream);
-    transition: border-color .18s;
-    outline: none;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    border-color: var(--menta2);
-  }
-  .form-group textarea { resize: vertical; min-height: 90px; }
-  .char-hint { font-size: .72rem; color: var(--gray3); }
-  .file-area {
-    border: 2px dashed var(--gray2); border-radius: 8px;
-    padding: 2rem; text-align: center; cursor: pointer;
-    transition: border-color .18s, background .18s;
-  }
-  .file-area:hover { border-color: var(--menta2); background: rgba(76,175,135,.05); }
-  .file-area p { font-size: .85rem; color: var(--gray3); margin-top: .4rem; }
-  .form-submit {
-    margin-top: 1.5rem;
-    background: var(--verde); color: var(--white);
-    border: none; border-radius: 6px; padding: .9rem 2rem;
-    font-size: .95rem; font-weight: 600; cursor: pointer;
-    width: 100%; transition: background .18s;
-  }
-  .form-submit:hover { background: var(--menta); }
-  .form-note { font-size: .78rem; color: var(--gray3); text-align: center; margin-top: .75rem; }
-
-  /* ── GALERIA ── */
-  #galeria { background: var(--white); }
-
-  .filters {
-    display: flex; gap: .75rem; flex-wrap: wrap; margin: 1.5rem 0 2rem;
-  }
-  .filter-btn {
-    padding: .45rem 1.1rem; border-radius: 20px;
-    border: 1.5px solid var(--gray2); background: transparent;
-    font-size: .8rem; font-weight: 500; cursor: pointer; color: var(--gray3);
-    transition: all .18s;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    border-color: var(--verde); background: var(--verde); color: var(--white);
-  }
-
-  .cards-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  .mural-card {
-    border-radius: 10px; overflow: hidden;
-    border: 1px solid var(--gray2);
-    transition: box-shadow .2s, transform .2s;
-    background: var(--white);
-  }
-  .mural-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.1); transform: translateY(-4px); }
-  .mural-img {
-    width: 100%; height: 180px;
-    background: linear-gradient(135deg, var(--menta2) 0%, var(--verde) 100%);
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-  }
-  .mural-img-placeholder {
-    font-size: 3rem; opacity: .4;
-  }
-  .mural-img-label {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,.5));
-    padding: .75rem; font-size: .75rem; color: rgba(255,255,255,.9); font-weight: 500;
-  }
-  .mural-body { padding: 1.1rem 1.25rem; }
-  .mural-school { font-weight: 600; font-size: .9rem; color: var(--verde); margin-bottom: .25rem; }
-  .mural-meta { font-size: .78rem; color: var(--gray3); margin-bottom: .75rem; }
-  .mural-action {
-    font-size: .82rem; color: var(--dark); line-height: 1.5;
-    background: var(--cream); border-radius: 6px;
-    padding: .6rem .75rem; border-left: 3px solid var(--amber);
-    font-style: italic;
-  }
-
-  .empty-state {
-    grid-column: 1/-1; text-align: center; padding: 4rem 2rem;
-    color: var(--gray3);
-  }
-  .empty-state p { font-size: 1rem; margin-top: .5rem; }
-
-  /* ── MAPA ── */
-  #mapa { background: var(--cream); }
-
-  .mapa-container {
-    margin-top: 2rem; border-radius: 12px; overflow: hidden;
-    border: 1px solid var(--gray2);
-    box-shadow: 0 4px 20px rgba(0,0,0,.08);
-  }
-  .mapa-placeholder {
-    height: 480px;
-    background: linear-gradient(160deg, #e8f5ee 0%, #c8e6d5 100%);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 1rem; color: var(--verde);
-  }
-  .mapa-placeholder-icon { font-size: 4rem; }
-  .mapa-placeholder h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; }
-  .mapa-placeholder p { font-size: .88rem; color: var(--gray3); max-width: 400px; text-align: center; }
-  .mapa-embed-hint {
-    background: var(--white); padding: 1.25rem 1.5rem;
-    border-top: 1px solid var(--gray2);
-    font-size: .82rem; color: var(--gray3);
-    display: flex; align-items: center; gap: .5rem;
-  }
-
-  /* ── INDICADORES ── */
-  #indicadores { background: var(--verde); }
-  #indicadores .section-label { color: var(--menta2); }
-  #indicadores .section-title { color: var(--white); }
-
-  .indicadores-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.25rem; margin-top: 2.5rem;
-  }
-  .ind-card {
-    background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.15);
-    border-radius: 10px; padding: 1.5rem; text-align: center;
-  }
-  .ind-icon { font-size: 2rem; margin-bottom: .5rem; }
-  .ind-value {
-    font-family: 'Fraunces', serif; font-size: 2.4rem;
-    font-weight: 700; color: var(--amber2); line-height: 1;
-    margin-bottom: .3rem;
-  }
-  .ind-label { font-size: .78rem; color: rgba(255,255,255,.65); letter-spacing: .04em; }
-
-  .estrategias-box {
-    margin-top: 3rem; background: rgba(255,255,255,.07);
-    border-radius: 10px; padding: 2rem;
-    border: 1px solid rgba(255,255,255,.12);
-  }
-  .estrategias-box h3 {
-    font-family: 'Fraunces', serif; font-size: 1.15rem;
-    color: var(--white); margin-bottom: 1.25rem;
-  }
-  .estrategia-item {
-    display: flex; align-items: center; gap: 1rem;
-    padding: .85rem 0; border-bottom: 1px solid rgba(255,255,255,.08);
-  }
-  .estrategia-item:last-child { border-bottom: none; }
-  .medalha { font-size: 1.5rem; flex-shrink: 0; }
-  .estrategia-text { flex: 1; }
-  .estrategia-text strong { display: block; font-size: .9rem; color: var(--white); }
-  .estrategia-text span { font-size: .78rem; color: rgba(255,255,255,.55); }
-  .bar-wrap { width: 120px; height: 8px; background: rgba(255,255,255,.12); border-radius: 4px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 4px; background: var(--amber2); }
-
-  /* ── DESTAQUES ── */
-  #destaques { background: var(--white); }
-
-  .destaques-intro {
-    display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start;
-    margin-bottom: 2.5rem;
-  }
-  .criterios {
-    background: var(--cream); border-radius: 10px;
-    padding: 1.25rem 1.5rem; min-width: 220px;
-  }
-  .criterios h4 { font-size: .8rem; font-weight: 600; color: var(--verde); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .75rem; }
-  .criterios ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
-  .criterios li { font-size: .82rem; color: var(--dark); display: flex; gap: .5rem; align-items: flex-start; }
-  .criterios li::before { content: '→'; color: var(--menta); font-weight: 700; flex-shrink: 0; }
-
-  .destaques-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  .destaque-card {
-    border-radius: 10px; border: 1px solid var(--gray2);
-    overflow: hidden; transition: transform .2s, box-shadow .2s;
-  }
-  .destaque-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.1); }
-  .destaque-header {
-    background: linear-gradient(135deg, var(--amber) 0%, #D4780E 100%);
-    padding: 1.25rem; display: flex; align-items: center; gap: .75rem;
-  }
-  .destaque-badge { font-size: 1.75rem; }
-  .destaque-header h3 { font-size: .9rem; font-weight: 600; color: var(--white); }
-  .destaque-header p { font-size: .75rem; color: rgba(255,255,255,.75); }
-  .destaque-body { padding: 1.25rem; }
-  .destaque-body p { font-size: .85rem; color: var(--gray3); line-height: 1.6; font-style: italic; }
-  .destaque-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .85rem; }
-  .tag {
-    font-size: .7rem; padding: .25rem .65rem; border-radius: 12px;
-    background: var(--cream); color: var(--menta); font-weight: 600; border: 1px solid var(--gray2);
-  }
-
-  /* ── MATERIAIS ── */
-  #materiais { background: var(--cream); }
-
-  .materiais-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.25rem; margin-top: 2rem;
-  }
-  .material-card {
-    background: var(--white); border-radius: 10px; padding: 1.5rem;
-    border: 1px solid var(--gray2); display: flex; flex-direction: column; gap: .6rem;
-    transition: box-shadow .2s, transform .2s; cursor: pointer;
-    text-decoration: none;
-  }
-  .material-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.09); transform: translateY(-3px); }
-  .material-icon { font-size: 2rem; }
-  .material-card h3 { font-size: .9rem; font-weight: 600; color: var(--verde); }
-  .material-card p { font-size: .8rem; color: var(--gray3); line-height: 1.5; flex: 1; }
-  .material-cta {
-    font-size: .78rem; font-weight: 600; color: var(--menta);
-    display: flex; align-items: center; gap: .3rem;
-    margin-top: .25rem;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--dark); color: rgba(255,255,255,.6);
-    padding: 3rem 2rem;
-    text-align: center;
-  }
-  .footer-inner { max-width: 680px; margin: 0 auto; }
-  .footer-logo {
-    font-family: 'Fraunces', serif; font-size: 1.1rem;
-    color: var(--white); margin-bottom: .35rem;
-  }
-  .footer-tagline { font-size: .82rem; font-style: italic; color: rgba(255,255,255,.45); margin-bottom: 1.5rem; }
-  .footer-divider { height: 1px; background: rgba(255,255,255,.1); margin: 1.25rem 0; }
-  .footer-inst { font-size: .8rem; line-height: 1.7; }
-  .footer-inst strong { color: rgba(255,255,255,.85); }
-
-  /* ── SCROLL FADE-IN ── */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 700px) {
-    nav { padding: 0 1rem; }
-    .nav-links { display: none; }
-    .form-grid { grid-template-columns: 1fr; }
-    .destaques-intro { grid-template-columns: 1fr; }
-    .criterios { min-width: auto; }
-    .bar-wrap { display: none; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .postit { animation: none !important; }
-    .reveal { transition: none; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mural Estadual dos Primeiros Tijolos — uma rede de ações pela aprendizagem inclusiva no Paraná.">
+  <title>Mural Estadual dos Primeiros Tijolos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Página inicial">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><b>Primeiros Tijolos</b><small>SEED Paraná · DEIN</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#participar">Como participar</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#mapa">Mapa</a>
+      <a href="#indicadores">Indicadores</a>
+      <a href="#materiais">Materiais</a>
+      <button class="button button-small open-form" type="button">Enviar mural</button>
+    </nav>
+  </header>
 
-<!-- NAV -->
-<nav>
-  <a href="#inicio" class="nav-logo"><span>🧱</span> Primeiros Tijolos</a>
-  <div class="nav-links">
-    <a href="#como">Como participar</a>
-    <a href="#enviar">Enviar mural</a>
-    <a href="#galeria">Galeria</a>
-    <a href="#mapa">Mapa</a>
-    <a href="#indicadores">Indicadores</a>
-    <a href="#destaques">Destaques</a>
-    <a href="#materiais">Materiais</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="inicio">
-  <div class="postit-field" id="postitField"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">🧱 DEIN · SEED-PR · Estudo e Planejamento 2026</div>
-    <h1 class="hero-title">Mural Estadual dos<br><em>Primeiros Tijolos</em></h1>
-    <p class="hero-subtitle">Da reflexão à ação: construindo pontes para a aprendizagem.<br>
-    Cada post-it representa um compromisso real com uma educação mais acessível, significativa e inclusiva.</p>
-    <div class="stats-row">
-      <div class="stat-pill"><strong id="cnt-escolas">0</strong><span>Escolas participantes</span></div>
-      <div class="stat-pill"><strong id="cnt-part">0</strong><span>Participantes envolvidos</span></div>
-      <div class="stat-pill"><strong id="cnt-murais">0</strong><span>Murais compartilhados</span></div>
-      <div class="stat-pill"><strong id="cnt-mun">0</strong><span>Municípios</span></div>
-    </div>
-    <div class="hero-btns">
-      <a href="#enviar" class="btn-primary">🧱 Enviar mural da escola</a>
-      <a href="#galeria" class="btn-outline">📋 Ver galeria</a>
-      <a href="#mapa" class="btn-outline">📍 Mapa das escolas</a>
-      <a href="#materiais" class="btn-outline">📚 Materiais</a>
-    </div>
-  </div>
-</section>
-
-<!-- COMO PARTICIPAR -->
-<section id="como">
-  <div class="section-inner">
-    <p class="section-label reveal">Passo a passo</p>
-    <h2 class="section-title reveal">Como compartilhar o mural da sua escola</h2>
-    <p class="section-lead reveal">Cinco etapas simples para registrar a participação da sua escola no Mural Estadual.</p>
-
-    <div class="steps-grid">
-      <div class="step-card reveal">
-        <div class="step-num">01</div>
-        <h3>Realizar a atividade</h3>
-        <p>Conduza a atividade do post-it proposta no Estudo e Planejamento com sua equipe pedagógica.</p>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num">02</div>
-        <h3>Organizar o mural</h3>
-        <p>Organize todos os registros no mural "Primeiros Tijolos" de forma visível e organizada.</p>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num">03</div>
-        <h3>Fotografar</h3>
-        <p>Fotografe o mural completo, com boa iluminação, garantindo que todos os post-its sejam legíveis.</p>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num">04</div>
-        <h3>Preencher o formulário</h3>
-        <p>Acesse o formulário estadual e registre as informações da sua escola e as principais ações identificadas.</p>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num">05</div>
-        <h3>Acompanhar a publicação</h3>
-        <p>Em breve, o mural da sua escola aparecerá na galeria estadual, visível para toda a rede.</p>
-      </div>
-    </div>
-
-    <div class="orientacoes reveal">
-      <h3>📸 Orientações para a fotografia</h3>
-      <ul>
-        <li>Utilizar boa iluminação, preferencialmente luz natural ou ambiente bem iluminado.</li>
-        <li>Fotografar o mural completo, sem cortar nenhum post-it.</li>
-        <li>Evitar imagens desfocadas ou com reflexos que dificultem a leitura.</li>
-        <li>Garantir que não apareçam dados pessoais identificáveis dos participantes.</li>
-        <li>Verificar se o nome da escola está informado corretamente no formulário.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ENVIAR MURAL -->
-<section id="enviar">
-  <div class="section-inner">
-    <p class="section-label reveal">Participação</p>
-    <h2 class="section-title reveal">Compartilhe o resultado da sua escola</h2>
-    <p class="section-lead reveal">Preencha o formulário abaixo para registrar a participação da sua escola no Mural Estadual dos Primeiros Tijolos.</p>
-
-    <div class="form-card reveal">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>NRE</label>
-          <select>
-            <option value="">Selecione o NRE...</option>
-            <option>Apucarana</option><option>Assis Chateaubriand</option>
-            <option>Campo Mourão</option><option>Cascavel</option>
-            <option>Cianorte</option><option>Cornélio Procópio</option>
-            <option>Curitiba</option><option>Foz do Iguaçu</option>
-            <option>Francisco Beltrão</option><option>Goioerê</option>
-            <option>Guarapuava</option><option>Ibaiti</option>
-            <option>Irati</option><option>Ivaiporã</option>
-            <option>Jacarezinho</option><option>Laranjeiras do Sul</option>
-            <option>Londrina</option><option>Loanda</option>
-            <option>Maringá</option><option>Paranaguá</option>
-            <option>Paranavaí</option><option>Pato Branco</option>
-            <option>Pitanga</option><option>Ponta Grossa</option>
-            <option>Toledo</option><option>Umuarama</option>
-            <option>União da Vitória</option><option>Wenceslau Braz</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Município</label>
-          <input type="text" placeholder="Nome do município">
-        </div>
-        <div class="form-group full">
-          <label>Nome da escola</label>
-          <input type="text" placeholder="Nome completo da instituição de ensino">
-        </div>
-        <div class="form-group">
-          <label>Quantidade de participantes</label>
-          <input type="number" min="1" placeholder="Ex: 24">
-        </div>
-        <div class="form-group">
-          <label>Responsável pelo envio</label>
-          <input type="text" placeholder="Nome completo">
-        </div>
-        <div class="form-group full">
-          <label>E-mail institucional</label>
-          <input type="email" placeholder="nome@escola.pr.gov.br">
-        </div>
-        <div class="form-group full">
-          <label>Foto do mural</label>
-          <div class="file-area" onclick="document.getElementById('fotoInput').click()">
-            <div style="font-size:2rem">📷</div>
-            <p><strong>Clique para selecionar a foto</strong> ou arraste até aqui<br>PNG, JPG ou JPEG · máx. 10 MB</p>
-            <input type="file" id="fotoInput" accept="image/*" style="display:none">
-          </div>
-        </div>
-        <div class="form-group full">
-          <label>Ação mais citada nos post-its</label>
-          <input type="text" placeholder="Descreva a ação mais registrada">
-        </div>
-        <div class="form-group">
-          <label>Segunda ação mais citada</label>
-          <input type="text" placeholder="Segunda ação">
-        </div>
-        <div class="form-group">
-          <label>Terceira ação mais citada</label>
-          <input type="text" placeholder="Terceira ação">
-        </div>
-        <div class="form-group full">
-          <label>Relato inspirador da escola</label>
-          <textarea id="relato" placeholder="Compartilhe um momento marcante, aprendizado coletivo ou frase que ficou do encontro... (até 300 caracteres)" maxlength="300"></textarea>
-          <span class="char-hint" id="charCount">0 / 300 caracteres</span>
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span></span> Estudo e Planejamento · 2º semestre de 2026</p>
+        <h1>Mural Estadual dos <em>Primeiros Tijolos</em></h1>
+        <p class="lead">Da reflexão à ação: construindo pontes para a aprendizagem.</p>
+        <p class="hero-text">Cada registro é uma ideia que ganhou forma — e um compromisso coletivo para tornar a aprendizagem mais acessível, significativa e inclusiva.</p>
+        <div class="hero-actions">
+          <button class="button open-form" type="button">Enviar mural <span>↗</span></button>
+          <a class="text-link" href="#galeria">Explorar a galeria <span>↓</span></a>
         </div>
       </div>
-      <button class="form-submit" onclick="handleSubmit()">🧱 Enviar mural da minha escola</button>
-      <p class="form-note">Após o envio, o mural será revisado e publicado na galeria estadual em até 5 dias úteis.</p>
-    </div>
-  </div>
-</section>
-
-<!-- GALERIA -->
-<section id="galeria">
-  <div class="section-inner">
-    <p class="section-label reveal">Rede em ação</p>
-    <h2 class="section-title reveal">Conheça as ações compartilhadas pelas escolas</h2>
-
-    <div class="filters reveal">
-      <button class="filter-btn active" onclick="filterCards(this,'todos')">Todos os NRE</button>
-      <button class="filter-btn" onclick="filterCards(this,'curitiba')">Curitiba</button>
-      <button class="filter-btn" onclick="filterCards(this,'londrina')">Londrina</button>
-      <button class="filter-btn" onclick="filterCards(this,'maringa')">Maringá</button>
-      <button class="filter-btn" onclick="filterCards(this,'cascavel')">Cascavel</button>
-    </div>
-
-    <div class="cards-grid" id="cardsGrid">
-      <div class="empty-state">
-        <div style="font-size:3rem">🧱</div>
-        <p>Os murais das escolas aparecerão aqui após o envio pelo formulário.</p>
-        <p style="margin-top:.5rem"><a href="#enviar" style="color:var(--menta);font-weight:600">Seja a primeira escola a compartilhar →</a></p>
+      <div class="hero-art reveal" aria-label="Ilustração de um mural com ações pela aprendizagem">
+        <div class="arch"></div>
+        <article class="note note-yellow"><small>ACOLHER</small><strong>Escutar cada estudante</strong><span>Escola em ação</span></article>
+        <article class="note note-blue"><small>INCLUIR</small><strong>Diferentes formas de aprender</strong><span>Primeiro tijolo</span></article>
+        <article class="note note-coral"><small>CRIAR</small><strong>Transformar ideias em prática</strong><span>Compromisso coletivo</span></article>
+        <div class="pencil" aria-hidden="true"></div>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="stats" aria-label="Números do projeto">
+        <article><span class="stat-icon">⌂</span><div><strong data-stat="schools">0</strong><small>escolas participantes</small></div></article>
+        <article><span class="stat-icon">◉</span><div><strong data-stat="people">0</strong><small>participantes envolvidos</small></div></article>
+        <article><span class="stat-icon">▦</span><div><strong data-stat="murals">0</strong><small>murais compartilhados</small></div></article>
+        <article><span class="stat-icon">✦</span><div><strong data-stat="strategies">0</strong><small>estratégias registradas</small></div></article>
+      </div>
+    </section>
 
-<!-- MAPA -->
-<section id="mapa">
-  <div class="section-inner">
-    <p class="section-label reveal">Distribuição estadual</p>
-    <h2 class="section-title reveal">Paraná em ação</h2>
-    <p class="section-lead reveal">Cada marcador representa uma escola participante. Clique para visualizar o mural e as principais ações registradas.</p>
-
-    <div class="mapa-container reveal">
-      <div class="mapa-placeholder">
-        <div class="mapa-placeholder-icon">🗺️</div>
-        <h3>Mapa interativo das escolas</h3>
-        <p>O mapa será ativado após as primeiras escolas enviarem seus murais. Utilize o Google My Maps para visualizar a distribuição estadual.</p>
-        <a href="#enviar" class="btn-primary" style="margin-top:.5rem">Cadastrar minha escola</a>
+    <section class="section section-steps" id="participar">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Como participar</p>
+        <h2>Uma ideia, cinco passos,<br>muitas possibilidades.</h2>
+        <p>Compartilhar o mural da sua escola é simples. O mais importante é tornar visíveis as reflexões construídas em conjunto.</p>
       </div>
-      <div class="mapa-embed-hint">
-        💡 <span>Para gestores: substitua este espaço pelo embed do Google My Maps acessando <strong>Inserir → iframe</strong> com a URL do mapa publicado.</span>
+      <div class="steps reveal">
+        <article><b>01</b><span>Converse</span><p>Realize a atividade do post-it proposta no Estudo e Planejamento.</p></article>
+        <article><b>02</b><span>Organize</span><p>Reúna os registros no mural “Primeiros Tijolos”.</p></article>
+        <article><b>03</b><span>Fotografe</span><p>Registre o mural completo, com boa luz e nitidez.</p></article>
+        <article><b>04</b><span>Compartilhe</span><p>Preencha o formulário estadual com os dados da escola.</p></article>
+        <article><b>05</b><span>Acompanhe</span><p>Veja a publicação na galeria e inspire-se com a Rede.</p></article>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- INDICADORES -->
-<section id="indicadores">
-  <div class="section-inner">
-    <p class="section-label reveal">Painel estadual</p>
-    <h2 class="section-title reveal">Indicadores de participação</h2>
-
-    <div class="indicadores-grid">
-      <div class="ind-card reveal">
-        <div class="ind-icon">🏫</div>
-        <div class="ind-value" id="ind-escolas">—</div>
-        <div class="ind-label">Escolas participantes</div>
-      </div>
-      <div class="ind-card reveal">
-        <div class="ind-icon">👥</div>
-        <div class="ind-value" id="ind-part">—</div>
-        <div class="ind-label">Participantes envolvidos</div>
-      </div>
-      <div class="ind-card reveal">
-        <div class="ind-icon">🧱</div>
-        <div class="ind-value" id="ind-murais">—</div>
-        <div class="ind-label">Murais enviados</div>
-      </div>
-      <div class="ind-card reveal">
-        <div class="ind-icon">📍</div>
-        <div class="ind-value" id="ind-mun">—</div>
-        <div class="ind-label">Municípios representados</div>
-      </div>
-    </div>
-
-    <div class="estrategias-box reveal">
-      <h3>🏆 Estratégias mais registradas</h3>
-      <div class="estrategia-item">
-        <div class="medalha">🥇</div>
-        <div class="estrategia-text">
-          <strong>Aguardando registros</strong>
-          <span>Os dados aparecerão conforme as escolas enviarem seus murais.</span>
-        </div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:0%"></div></div>
-      </div>
-      <div class="estrategia-item">
-        <div class="medalha">🥈</div>
-        <div class="estrategia-text">
-          <strong>—</strong><span>—</span>
-        </div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:0%"></div></div>
-      </div>
-      <div class="estrategia-item">
-        <div class="medalha">🥉</div>
-        <div class="estrategia-text">
-          <strong>—</strong><span>—</span>
-        </div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:0%"></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DESTAQUES -->
-<section id="destaques">
-  <div class="section-inner">
-    <p class="section-label reveal">Inspirações da rede</p>
-    <h2 class="section-title reveal">Experiências inspiradoras</h2>
-
-    <div class="destaques-intro">
-      <p class="section-lead reveal">Espaço destinado a destacar experiências que demonstrem criatividade, colaboração e compromisso com a aprendizagem acessível e inclusiva.</p>
-      <div class="criterios reveal">
-        <h4>Critérios de destaque</h4>
+      <aside class="photo-tip reveal">
+        <div><span>◎</span><strong>Uma boa foto faz sua ideia chegar mais longe.</strong></div>
         <ul>
-          <li>Participação coletiva da equipe</li>
-          <li>Originalidade da abordagem</li>
-          <li>Potencial de replicação na rede</li>
-          <li>Contribuição para a inclusão</li>
+          <li>Use boa iluminação</li><li>Fotografe o mural completo</li><li>Evite imagens desfocadas</li><li>Não exponha dados pessoais</li><li>Confira o nome da escola</li>
         </ul>
+      </aside>
+    </section>
+
+    <section class="section gallery-section" id="galeria">
+      <div class="section-heading heading-row reveal">
+        <div><p class="eyebrow">Galeria dos murais</p><h2>Ideias que já estão<br>movendo a Rede.</h2></div>
+        <p>Conheça ações compartilhadas por escolas de diferentes regiões do Paraná.</p>
       </div>
-    </div>
+      <div class="filters reveal" aria-label="Filtros da galeria">
+        <label><span>NRE</span><select id="filter-nre"><option value="all">Todos os NRE</option></select></label>
+        <label><span>Município</span><select id="filter-city"><option value="all">Todos os municípios</option></select></label>
+        <label><span>Etapa</span><select id="filter-stage"><option value="all">Todas as etapas</option></select></label>
+        <button id="clear-filters" type="button">Limpar filtros</button>
+      </div>
+      <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+      <p class="empty-state" id="empty-state" hidden>Nenhum mural encontrado com estes filtros.</p>
+    </section>
 
-    <div class="destaques-grid">
-      <div class="destaque-card reveal">
-        <div class="destaque-header">
-          <div class="destaque-badge">⭐</div>
-          <div>
-            <h3>Em breve</h3>
-            <p>Os destaques serão selecionados pelo DEIN após o recebimento dos murais.</p>
-          </div>
-        </div>
-        <div class="destaque-body">
-          <p>As escolas com experiências mais inspiradoras terão seus relatos destacados nesta seção, servindo de referência para toda a rede estadual.</p>
-          <div class="destaque-tags">
-            <span class="tag">DUA</span>
-            <span class="tag">Inclusão</span>
-            <span class="tag">Colaboração</span>
-          </div>
+    <section class="map-section" id="mapa">
+      <div class="map-copy reveal">
+        <p class="eyebrow light">Mapa das escolas</p>
+        <h2>O Paraná inteiro<br>em movimento.</h2>
+        <p>Cada ponto representa uma escola participante. Selecione um marcador para conhecer uma ação dessa comunidade.</p>
+        <div id="map-detail" class="map-detail" aria-live="polite">
+          <small>Selecione uma escola</small>
+          <strong>Os primeiros tijolos estão por todo o estado.</strong>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="parana-map reveal" role="img" aria-label="Mapa ilustrativo das escolas participantes no Paraná">
+        <svg viewBox="0 0 580 470" aria-hidden="true">
+          <path d="M144 32 253 54l57 48 87 13 74 51-28 78 37 59-69 48-7 64-95 19-74-42-76-10-16-69-58-37 36-72-15-65z"/>
+          <path class="river" d="M155 104c68 36 78 112 154 130s66 83 122 111"/>
+        </svg>
+        <div id="map-markers"></div>
+      </div>
+    </section>
 
-<!-- MATERIAIS -->
-<section id="materiais">
-  <div class="section-inner">
-    <p class="section-label reveal">Estudo e Planejamento 2026</p>
-    <h2 class="section-title reveal">Materiais da formação</h2>
-    <p class="section-lead reveal">Acesse os recursos utilizados durante o Estudo e Planejamento do 2º semestre de 2026.</p>
+    <section class="section dashboard" id="indicadores">
+      <div class="section-heading heading-row reveal">
+        <div><p class="eyebrow">Indicadores estaduais</p><h2>Quando somamos ideias,<br>enxergamos caminhos.</h2></div>
+        <p>Um retrato vivo da participação e das estratégias construídas pela Rede.</p>
+      </div>
+      <div class="dashboard-grid reveal">
+        <article class="panel participation"><span class="panel-label">Participação</span><div class="big-number" data-stat="schools">0</div><p>escolas participantes</p><div class="mini-stats"><span><b data-stat="people">0</b> pessoas</span><span><b data-stat="cities">0</b> municípios</span></div></article>
+        <article class="panel ranking"><span class="panel-label">Estratégias mais citadas</span><ol id="ranking-list"></ol></article>
+        <article class="panel bars"><span class="panel-label">Participação por NRE</span><div id="bar-chart"></div></article>
+        <article class="panel words"><span class="panel-label">Palavras que mobilizam</span><div class="word-cloud"><b>acolhimento</b><span>autonomia</span><strong>inclusão</strong><i>escuta</i><span>acessibilidade</span><em>colaboração</em><b>equidade</b><small>aprendizagem</small><i>pertencimento</i></div></article>
+      </div>
+    </section>
 
-    <div class="materiais-grid">
-      <a href="#" class="material-card reveal">
-        <div class="material-icon">📄</div>
-        <h3>Roteiro de estudos</h3>
-        <p>Documento orientador com as etapas e reflexões propostas para o Estudo e Planejamento.</p>
-        <div class="material-cta">Acessar →</div>
-      </a>
-      <a href="#" class="material-card reveal">
-        <div class="material-icon">📊</div>
-        <h3>Apresentação</h3>
-        <p>Slides utilizados durante a formação com os fundamentos do DUA e as atividades práticas.</p>
-        <div class="material-cta">Acessar →</div>
-      </a>
-      <a href="#" class="material-card reveal">
-        <div class="material-icon">🎥</div>
-        <h3>Vídeos complementares</h3>
-        <p>Seleção de vídeos de apoio sobre Desenho Universal para Aprendizagem e barreiras pedagógicas.</p>
-        <div class="material-cta">Assistir →</div>
-      </a>
-      <a href="#" class="material-card reveal">
-        <div class="material-icon">📚</div>
-        <h3>Referências bibliográficas</h3>
-        <p>Lista completa das referências que embasam os materiais do Estudo e Planejamento 2026.</p>
-        <div class="material-cta">Acessar →</div>
-      </a>
-      <a href="#" class="material-card reveal">
-        <div class="material-icon">🧱</div>
-        <h3>Orientações do Mural</h3>
-        <p>Guia detalhado com instruções para realização e registro do Mural Estadual dos Primeiros Tijolos.</p>
-        <div class="material-cta">Acessar →</div>
-      </a>
-    </div>
-  </div>
-</section>
+    <section class="highlights">
+      <div class="section reveal">
+        <p class="eyebrow light">Destaques da Rede</p>
+        <h2>Experiências que<br>abrem novas portas.</h2>
+        <p class="highlight-lead">Criatividade, colaboração e compromisso transformam uma ação local em inspiração para todo o Paraná.</p>
+        <div class="criteria">
+          <article><span>01</span><b>Participação coletiva</b><p>A comunidade aprende e constrói junta.</p></article>
+          <article><span>02</span><b>Originalidade</b><p>Novos olhares para desafios reais.</p></article>
+          <article><span>03</span><b>Potencial de replicação</b><p>Boas ideias que podem viajar.</p></article>
+          <article><span>04</span><b>Contribuição para inclusão</b><p>Menos barreiras, mais oportunidades.</p></article>
+        </div>
+      </div>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">🧱 Mural Estadual dos Primeiros Tijolos</div>
-    <div class="footer-tagline">Da reflexão à ação: construindo pontes para a aprendizagem.</div>
-    <div class="footer-divider"></div>
-    <div class="footer-inst">
-      <strong>Departamento de Educação Inclusiva – DEIN</strong><br>
-      Secretaria de Estado da Educação do Paraná – SEED/PR<br>
-      Estudo e Planejamento · 2º semestre de 2026
-    </div>
-  </div>
-</footer>
+    <section class="section materials" id="materiais">
+      <div class="materials-intro reveal">
+        <p class="eyebrow">Materiais da formação</p>
+        <h2>Tudo o que você precisa para começar.</h2>
+        <p>Acesse os conteúdos utilizados no Estudo e Planejamento 2026.</p>
+      </div>
+      <div class="material-list reveal">
+        <a href="#" data-placeholder><span>01</span><b>Roteiro de estudos</b><small>PDF</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>02</span><b>Apresentação</b><small>PPTX</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>03</span><b>Vídeos complementares</b><small>PLAYLIST</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>04</span><b>Referências</b><small>PDF</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>05</span><b>Orientações para o Mural Estadual</b><small>PDF</small><i>↗</i></a>
+      </div>
+    </section>
+  </main>
 
-<script>
-  /* ── POST-ITS FLUTUANTES ── */
-  const msgs = [
-    "Adaptar materiais para todos","Usar múltiplas formas de expressão",
-    "Planejar com o DUA","Remover barreiras","Oferecer mais escolhas",
-    "Avaliar de formas variadas","Engajar a todos","Incluir de verdade",
-    "Andaimes cognitivos","Bússola do Planejamento","Acessibilidade",
-    "Colaboração","Flexibilidade","Pertencimento","Equidade"
-  ];
-  const colors = ['var(--postit1)','var(--postit2)','var(--postit3)','var(--postit4)'];
-  const field = document.getElementById('postitField');
+  <footer>
+    <div class="footer-callout"><div><small>Seu mural já está pronto?</small><strong>Coloque mais um tijolo nessa construção.</strong></div><button class="button button-light open-form" type="button">Enviar mural <span>↗</span></button></div>
+    <div class="footer-bottom"><div class="brand brand-footer"><span class="brand-mark"><i></i><i></i><i></i></span><span><b>Primeiros Tijolos</b><small>Da reflexão à ação</small></span></div><p>Departamento de Educação Inclusiva – DEIN<br>Secretaria de Estado da Educação do Paraná – SEED/PR</p><p>Estudo e Planejamento · 2026</p></div>
+  </footer>
 
-  function spawnPostit() {
-    const el = document.createElement('div');
-    el.className = 'postit';
-    const r = (Math.random()*20-10).toFixed(1)+'deg';
-    el.style.setProperty('--r', r);
-    el.style.left = (Math.random()*95)+'%';
-    el.style.bottom = '-120px';
-    el.style.background = colors[Math.floor(Math.random()*colors.length)];
-    el.style.animationDuration = (12+Math.random()*12)+'s';
-    el.style.animationDelay = '0s';
-    el.textContent = msgs[Math.floor(Math.random()*msgs.length)];
-    field.appendChild(el);
-    setTimeout(() => el.remove(), 26000);
-  }
+  <dialog id="mural-dialog">
+    <form id="mural-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Enviar mural</p><h2>Compartilhe o resultado da sua escola.</h2><p>Os campos com * são obrigatórios.</p></div><button class="dialog-close" type="button" aria-label="Fechar">×</button></div>
+      <div class="form-grid">
+        <label><span>NRE *</span><input name="nre" required placeholder="Ex.: Curitiba"></label>
+        <label><span>Município *</span><input name="city" required placeholder="Ex.: Curitiba"></label>
+        <label class="wide"><span>Nome da escola *</span><input name="school" required placeholder="Nome completo da instituição"></label>
+        <label><span>Etapa de ensino *</span><select name="stage" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>EJA</option><option>Educação Especial</option></select></label>
+        <label><span>Quantidade de participantes *</span><input name="people" type="number" min="1" required placeholder="0"></label>
+        <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required><small>JPG ou PNG. Evite imagens com dados pessoais.</small></label>
+        <label class="wide"><span>Ação mais citada *</span><input name="action1" required placeholder="Ex.: Ampliar formas de expressão"></label>
+        <label><span>Segunda ação mais citada</span><input name="action2"></label>
+        <label><span>Terceira ação mais citada</span><input name="action3"></label>
+        <label class="wide"><span>Relato inspirador (até 300 caracteres)</span><textarea name="story" maxlength="300" rows="4"></textarea><small class="counter">0/300</small></label>
+        <label><span>Responsável pelo envio *</span><input name="owner" required></label>
+        <label><span>E-mail institucional *</span><input name="email" type="email" required placeholder="nome@escola.pr.gov.br"></label>
+      </div>
+      <label class="consent"><input type="checkbox" required> <span>Confirmo que a imagem não contém dados pessoais e autorizo sua publicação institucional.</span></label>
+      <button class="button submit-button" type="submit">Enviar participação <span>↗</span></button>
+    </form>
+  </dialog>
 
-  for (let i=0;i<8;i++) setTimeout(spawnPostit, i*1200);
-  setInterval(spawnPostit, 1800);
-
-  /* ── CONTADORES ANIMADOS ── */
-  function animCount(el, target, suffix='') {
-    const dur = 1600, step = 16;
-    const inc = target / (dur/step);
-    let cur = 0;
-    const timer = setInterval(() => {
-      cur = Math.min(cur+inc, target);
-      el.textContent = Math.floor(cur) + suffix;
-      if (cur >= target) clearInterval(timer);
-    }, step);
-  }
-
-  // Dados placeholder — substitua pelos valores reais ou integre com planilha
-  const dados = { escolas: 0, part: 0, murais: 0, mun: 0 };
-
-  function initCounters() {
-    document.getElementById('cnt-escolas').textContent = dados.escolas;
-    document.getElementById('cnt-part').textContent = dados.part;
-    document.getElementById('cnt-murais').textContent = dados.murais;
-    document.getElementById('cnt-mun').textContent = dados.mun;
-    ['ind-escolas','ind-part','ind-murais','ind-mun'].forEach(id => {
-      document.getElementById(id).textContent = '—';
-    });
-  }
-  initCounters();
-
-  /* ── CHAR COUNT ── */
-  document.getElementById('relato').addEventListener('input', function() {
-    document.getElementById('charCount').textContent = this.value.length + ' / 300 caracteres';
-  });
-
-  /* ── SUBMIT ── */
-  function handleSubmit() {
-    alert('✅ Formulário de demonstração.\n\nPara ativar o envio real, integre com Google Forms ou uma planilha do Google Sheets via Apps Script.');
-  }
-
-  /* ── FILTROS GALERIA ── */
-  function filterCards(btn, nre) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-
-  /* ── SCROLL REVEAL ── */
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body>
 </html>
