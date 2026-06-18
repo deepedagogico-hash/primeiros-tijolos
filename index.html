@@ -94,18 +94,18 @@
       <p class="empty-state" id="empty-state" hidden>Nenhum mural encontrado com estes filtros.</p>
     </section>
 
-    <section class="map-section" id="mapa">
+    <section class="map-section" id="mapa" aria-label="Mapa das escolas participantes">
       <div class="map-copy reveal">
         <p class="eyebrow light">Mapa das escolas</p>
         <h2>O Paraná inteiro<br>em movimento.</h2>
-        <p>Cada marcador representa uma escola participante. Clique para conhecer a ação dessa comunidade.</p>
-        <div id="map-detail" class="map-detail" aria-live="polite">
+        <p>Cada marcador representa uma escola participante. Clique ou pressione Enter para conhecer a ação dessa comunidade.</p>
+        <div id="map-detail" class="map-detail" aria-live="polite" aria-atomic="true">
           <small>Selecione uma escola no mapa</small>
           <strong>Os primeiros tijolos estão por todo o estado.</strong>
         </div>
       </div>
       <div class="leaflet-wrap reveal">
-        <div id="leaflet-map"></div>
+        <div id="leaflet-map" role="application" aria-label="Mapa interativo das escolas participantes no Paraná. Use as teclas de seta para navegar entre os marcadores."></div>
       </div>
     </section>
 

@@ -867,10 +867,11 @@ function initMap() {
   obs.observe(document.getElementById('mapa'));
 }
 
-function makeIcon(color) {
+function makeIcon(color, school, city) {
   const colors = {blue:'#83c5d5', yellow:'#f3d86b', coral:'#ef745b'};
+  const bg = colors[color] || colors.coral;
   return L.divIcon({
-    html:`<div class="map-pin" style="background:${colors[color]||colors.coral}"></div>`,
+    html:`<div class="map-pin" style="background:${bg}" role="img" aria-label="${escapeHtml(school)} — ${escapeHtml(city)}"></div>`,
     className:'', iconSize:[20,20], iconAnchor:[10,10], popupAnchor:[0,-12]
   });
 }
@@ -880,7 +881,13 @@ function renderMap() {
   markerCluster.clearLayers();
   murals.forEach(m => {
     const latlng = getCityLatLng(m.city);
-    const marker = L.marker(latlng, {icon: makeIcon(m.color||'coral')});
+    const label = `${escapeHtml(m.school)}, ${escapeHtml(m.city)}, NRE ${escapeHtml(m.nre)}. Ação: ${escapeHtml(m.action)}. ${format(m.people)} participantes.`;
+    const marker = L.marker(latlng, {
+      icon: makeIcon(m.color||'coral', m.school, m.city),
+      alt: label,
+      keyboard: true,
+      title: m.school
+    });
     marker.bindPopup(`
       <div class="leaflet-popup-inner">
         <small>${escapeHtml(m.city)} · NRE ${escapeHtml(m.nre)}</small>
@@ -1003,16 +1010,18 @@ const STOPWORDS = new Set(['de','a','o','e','da','do','as','os','em','para','com
 function renderWordCloud() {
   const counts = {};
 
+  const norm = s => s.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
   // Ações (tags) — peso 3
   murals.flatMap(m => m.actions).filter(Boolean).forEach(w => {
-    const k = w.trim().toLowerCase();
+    const k = norm(w);
     if (k.length > 3 && !STOPWORDS.has(k)) counts[k] = (counts[k] || 0) + 3;
   });
 
   // Palavras das frases de ação — peso 1
   murals.map(m => m.action).filter(Boolean).forEach(phrase => {
     phrase.split(/\s+/).forEach(raw => {
-      const w = raw.replace(/[^a-záéíóúãõâêôçü]/gi, '').toLowerCase();
+      const w = norm(raw.replace(/[^a-záéíóúãõâêôçü]/gi, ''));
       if (w.length > 4 && !STOPWORDS.has(w)) counts[w] = (counts[w] || 0) + 1;
     });
   });
