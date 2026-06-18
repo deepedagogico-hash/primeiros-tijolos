@@ -795,13 +795,30 @@ const NRE_MAP = {
 
 function getCityLatLng(cityName) {
   if (!cityName) return [-25.4290,-51.2700];
-  if (CITY_COORDS[cityName]) return CITY_COORDS[cityName];
-  // busca parcial
-  const key = Object.keys(CITY_COORDS).find(k =>
-    cityName.toLowerCase().includes(k.toLowerCase()) ||
-    k.toLowerCase().includes(cityName.toLowerCase())
-  );
-  return key ? CITY_COORDS[key] : [-25.43+(Math.random()-.5)*2, -51.27+(Math.random()-.5)*3];
+
+  const normalized = cityName
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  if (CITY_COORDS[normalized]) {
+    return CITY_COORDS[normalized];
+  }
+
+  const key = Object.keys(CITY_COORDS).find(k => {
+    const nk = k
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    return (
+      normalized.toLowerCase().includes(nk.toLowerCase()) ||
+      nk.toLowerCase().includes(normalized.toLowerCase())
+    );
+  });
+
+  return key
+    ? CITY_COORDS[key]
+    : [-25.4290,-51.2700];
 }
 
 function getNRE(cityName) {
