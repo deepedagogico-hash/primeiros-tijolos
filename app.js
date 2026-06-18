@@ -981,7 +981,10 @@ function renderGallery() {
 /* ── 11. DASHBOARD ── */
 function renderDashboard() {
   const counts={};
-  murals.flatMap(m=>m.actions).filter(Boolean).forEach(a=>counts[a]=(counts[a]||0)+1);
+  murals.flatMap(m=>m.actions).filter(Boolean).forEach(a=>{
+    const k=a.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    counts[k]=(counts[k]||0)+1;
+});
   $('#ranking-list').innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5)
     .map(([name,count],i)=>`<li><b>0${i+1}</b><span>${escapeHtml(name)}</span><small>${count}×</small></li>`).join('')
     ||'<li><span style="color:#999">Aguardando registros...</span></li>';
