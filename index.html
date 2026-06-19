@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mural Estadual dos Primeiros Tijolos — uma rede de ações pela aprendizagem inclusiva no Paraná.">
+  <title>Mural Estadual dos Primeiros Tijolos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Página inicial">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><b>Primeiros Tijolos</b><small>SEED Paraná · DEIN</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#participar">Como participar</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#mapa">Mapa</a>
+      <a href="#indicadores">Indicadores</a>
+      <a href="#materiais">Materiais</a>
+      <button class="button button-small open-form" type="button" aria-label="Abrir formulário para enviar mural da escola">Enviar mural</button>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span></span> Estudo e Planejamento · 2º semestre de 2026</p>
+        <h1>Mural Estadual dos <em>Primeiros Tijolos</em></h1>
+        <p class="lead">Da reflexão à ação: construindo pontes para a aprendizagem.</p>
+        <p class="hero-text">Cada registro é uma ideia que ganhou forma — e um compromisso coletivo para tornar a aprendizagem mais acessível, significativa e inclusiva.</p>
+        <div class="hero-actions">
+          <button class="button open-form" type="button" aria-label="Abrir formulário para enviar mural da escola">Enviar mural <span aria-hidden="true">↗</span></button>
+          <a class="text-link" href="#galeria">Explorar a galeria <span>↓</span></a>
+        </div>
+      </div>
+      <div class="hero-art reveal" aria-label="Ilustração de um mural com ações pela aprendizagem">
+        <div class="arch"></div>
+        <article class="note note-yellow"><small>ACOLHER</small><strong>Escutar cada estudante</strong><span>Escola em ação</span></article>
+        <article class="note note-blue"><small>INCLUIR</small><strong>Diferentes formas de aprender</strong><span>Primeiro tijolo</span></article>
+        <article class="note note-coral"><small>CRIAR</small><strong>Transformar ideias em prática</strong><span>Compromisso coletivo</span></article>
+        <div class="pencil" aria-hidden="true"></div>
+      </div>
+      <div class="stats" aria-label="Números do projeto">
+        <article><span class="stat-icon" aria-hidden="true">⌂</span><div><strong data-stat="schools">0</strong><small>escolas participantes</small></div></article>
+        <article><span class="stat-icon" aria-hidden="true">◉</span><div><strong data-stat="people">0</strong><small>participantes envolvidos</small></div></article>
+        <article><span class="stat-icon" aria-hidden="true">▦</span><div><strong data-stat="murals">0</strong><small>murais compartilhados</small></div></article>
+        <article><span class="stat-icon" aria-hidden="true">✦</span><div><strong data-stat="strategies">0</strong><small>estratégias registradas</small></div></article>
+      </div>
+    </section>
+
+    <section class="section section-steps" id="participar">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Como participar</p>
+        <h2>Uma ideia, cinco passos,<br>muitas possibilidades.</h2>
+        <p>Compartilhar o mural da sua escola é simples. O mais importante é tornar visíveis as reflexões construídas em conjunto.</p>
+      </div>
+      <div class="steps reveal">
+        <article><b>01</b><span>Converse</span><p>Realize a atividade do post-it proposta no Estudo e Planejamento.</p></article>
+        <article><b>02</b><span>Organize</span><p>Reúna os registros no mural "Primeiros Tijolos".</p></article>
+        <article><b>03</b><span>Fotografe</span><p>Registre o mural completo, com boa luz e nitidez.</p></article>
+        <article><b>04</b><span>Compartilhe</span><p>Preencha o formulário estadual com os dados da escola.</p></article>
+        <article><b>05</b><span>Acompanhe</span><p>Veja a publicação na galeria e inspire-se com a Rede.</p></article>
+      </div>
+      <aside class="photo-tip reveal">
+        <div><span>◎</span><strong>Uma boa foto faz sua ideia chegar mais longe.</strong></div>
+        <ul>
+          <li>Use boa iluminação</li><li>Fotografe o mural completo</li><li>Evite imagens desfocadas</li><li>Não exponha dados pessoais</li><li>Confira o nome da escola</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section gallery-section" id="galeria">
+      <div class="section-heading heading-row reveal">
+        <div><p class="eyebrow">Galeria dos murais</p><h2>Ideias que já estão<br>movendo a Rede.</h2></div>
+        <p>Conheça ações compartilhadas por escolas de diferentes regiões do Paraná.</p>
+      </div>
+      <div class="filters reveal" aria-label="Filtros da galeria">
+        <label><span>NRE</span><select id="filter-nre"><option value="all">Todos os NRE</option></select></label>
+        <label><span>Município</span><select id="filter-city"><option value="all">Todos os municípios</option></select></label>
+        <label><span>Etapa</span><select id="filter-stage"><option value="all">Todas as etapas</option></select></label>
+        <button id="clear-filters" type="button">Limpar filtros</button>
+      </div>
+      <div class="gallery-grid" id="gallery-grid" role="list" aria-live="polite" aria-label="Galeria de murais das escolas participantes"></div>
+      <p class="empty-state" id="empty-state" hidden>Nenhum mural encontrado com estes filtros.</p>
+    </section>
+
+    <section class="map-section" id="mapa" aria-label="Mapa das escolas participantes">
+      <div class="map-copy reveal">
+        <p class="eyebrow light">Mapa das escolas</p>
+        <h2>O Paraná inteiro<br>em movimento.</h2>
+        <p>Cada marcador representa uma escola participante. Clique ou pressione Enter para conhecer a ação dessa comunidade.</p>
+        <div id="map-detail" class="map-detail" aria-live="polite" aria-atomic="true">
+          <small>Selecione uma escola no mapa</small>
+          <strong>Os primeiros tijolos estão por todo o estado.</strong>
+        </div>
+      </div>
+      <div class="leaflet-wrap reveal">
+        <div id="leaflet-map" role="application" aria-label="Mapa interativo das escolas participantes no Paraná. Use as teclas de seta para navegar entre os marcadores."></div>
+      </div>
+    </section>
+
+    <section class="section dashboard" id="indicadores">
+      <div class="section-heading heading-row reveal">
+        <div><p class="eyebrow">Indicadores estaduais</p><h2>Quando somamos ideias,<br>enxergamos caminhos.</h2></div>
+        <p>Um retrato vivo da participação e das estratégias construídas pela Rede.</p>
+      </div>
+      <div class="dashboard-grid reveal">
+        <article class="panel participation"><span class="panel-label">Participação</span><div class="big-number" data-stat="schools">0</div><p>escolas participantes</p><div class="mini-stats"><span><b data-stat="people">0</b> pessoas</span><span><b data-stat="cities">0</b> municípios</span><span><b data-stat="nres">0</b> NREs</span></div></article>
+        <article class="panel ranking"><span class="panel-label">Estratégias mais citadas</span><ol id="ranking-list"></ol></article>
+        <article class="panel bars"><span class="panel-label">Participação por NRE</span><div id="bar-chart"></div></article>
+        <article class="panel words"><span class="panel-label">Palavras que mobilizam</span><canvas id="word-cloud-canvas"></canvas></article>
+      </div>
+    </section>
+
+    <section class="highlights">
+      <div class="section reveal">
+        <p class="eyebrow light">Destaques da Rede</p>
+        <h2>Experiências que<br>abrem novas portas.</h2>
+        <p class="highlight-lead">Criatividade, colaboração e compromisso transformam uma ação local em inspiração para todo o Paraná.</p>
+        <div class="criteria" role="list">
+          <article role="listitem"><span aria-hidden="true">01</span><b>Participação coletiva</b><p>A comunidade aprende e constrói junta.</p></article>
+          <article role="listitem"><span aria-hidden="true">02</span><b>Originalidade</b><p>Novos olhares para desafios reais.</p></article>
+          <article role="listitem"><span aria-hidden="true">03</span><b>Potencial de replicação</b><p>Boas ideias que podem viajar.</p></article>
+          <article role="listitem"><span aria-hidden="true">04</span><b>Contribuição para inclusão</b><p>Menos barreiras, mais oportunidades.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section materials" id="materiais">
+      <div class="materials-intro reveal">
+        <p class="eyebrow">Materiais da formação</p>
+        <h2>Tudo o que você precisa para começar.</h2>
+        <p>Acesse os conteúdos utilizados no Estudo e Planejamento 2026.</p>
+      </div>
+      <div class="material-list reveal">
+        <a href="#" data-placeholder><span>01</span><b>Roteiro de estudos</b><small>PDF</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>02</span><b>Apresentação</b><small>PPTX</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>03</span><b>Vídeos complementares</b><small>PLAYLIST</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>04</span><b>Referências</b><small>PDF</small><i>↗</i></a>
+        <a href="#" data-placeholder><span>05</span><b>Orientações para o Mural Estadual</b><small>PDF</small><i>↗</i></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-callout"><div><small>Seu mural já está pronto?</small><strong>Coloque mais um tijolo nessa construção.</strong></div><button class="button button-light open-form" type="button" aria-label="Abrir formulário para enviar mural da escola">Enviar mural <span aria-hidden="true">↗</span></button></div>
+    <div class="footer-bottom"><div class="brand brand-footer"><span class="brand-mark"><i></i><i></i><i></i></span><span><b>Primeiros Tijolos</b><small>Da reflexão à ação</small></span></div><p>Departamento de Educação Inclusiva – DEIN<br>Secretaria de Estado da Educação do Paraná – SEED/PR</p><p>Estudo e Planejamento · 2026</p></div>
+    <div class="footer-a11y" role="contentinfo" aria-label="Informações de acessibilidade">
+      <div class="a11y-inner">
+        <span class="a11y-icon" aria-hidden="true">⌾</span>
+        <div class="a11y-content">
+          <strong>Acessibilidade</strong>
+          <p>Este site foi desenvolvido seguindo as diretrizes de acessibilidade digital para garantir uma experiência inclusiva a todos os usuários.</p>
+          <ul class="a11y-list" aria-label="Critérios de acessibilidade atendidos">
+            <li>Navegação completa por teclado</li>
+            <li>Compatível com leitores de tela</li>
+            <li>Contraste de cores adequado (WCAG 2.1 AA)</li>
+            <li>Textos alternativos em imagens</li>
+            <li>Estrutura semântica de cabeçalhos</li>
+            <li>Etiquetas descritivas em formulários</li>
+            <li>Link de salto para o conteúdo principal</li>
+            <li>Compatível com Chrome 90+, Firefox 88+, Edge 90+ e Safari 14+</li>
+          </ul>
+        </div>
+        <p class="a11y-ref">Baseado nas diretrizes <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1 e no <abbr title="Modelo de Acessibilidade em Governo Eletrônico">eMAG</abbr>.<br>Problemas de acessibilidade? Entre em contato com o <abbr title="Departamento de Educação Inclusiva">DEIN</abbr>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="mural-dialog">
+    <form id="mural-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">Enviar mural</p><h2>Compartilhe o resultado da sua escola.</h2><p>Os campos com * são obrigatórios.</p></div><button class="dialog-close" type="button" aria-label="Fechar">×</button></div>
+      <div class="form-grid">
+        <label class="wide"><span>Município *</span>
+          <select name="city" required onchange="document.querySelector('[name=nre]').value=getNRE(this.value)">
+            <option value="">Selecione o município...</option>
+            <option>Abatia</option><option>Adrianópolis</option><option>Agudos do Sul</option>
+            <option>Almirante Tamandaré</option><option>Altamira do Paraná</option><option>Alto Paraíso</option>
+            <option>Alto Paraná</option><option>Alto Piquiri</option><option>Altônia</option>
+            <option>Alvorada do Sul</option><option>Amaporã</option><option>Ampére</option>
+            <option>Andirá</option><option>Ângulo</option><option>Antônio Olinto</option>
+            <option>Antonina</option><option>Arapoti</option><option>Arapuã</option>
+            <option>Arapongas</option><option>Araruna</option><option>Araucária</option>
+            <option>Ariranha do Ivaí</option><option>Assaí</option><option>Assis Chateaubriand</option>
+            <option>Astorga</option><option>Atalaia</option><option>Balsa Nova</option>
+            <option>Bandeirantes</option><option>Barbosa Ferraz</option><option>Barra do Jacaré</option>
+            <option>Barracão</option><option>Bela Vista da Caroba</option><option>Bela Vista do Paraíso</option>
+            <option>Bituruna</option><option>Boa Esperança</option><option>Boa Esperança do Iguaçu</option>
+            <option>Boa Ventura de São Roque</option><option>Boa Vista da Aparecida</option>
+            <option>Bocaiúva do Sul</option><option>Bom Jesus do Sul</option><option>Bom Sucesso</option>
+            <option>Bom Sucesso do Sul</option><option>Borrazópolis</option><option>Braganey</option>
+            <option>Brasilândia do Sul</option><option>Cafeara</option><option>Cafelândia</option>
+            <option>Cafezal do Sul</option><option>Califórnia</option><option>Cambará</option>
+            <option>Cambé</option><option>Cambira</option><option>Campina da Lagoa</option>
+            <option>Campina do Simão</option><option>Campina Grande do Sul</option><option>Campo Bonito</option>
+            <option>Campo do Tenente</option><option>Campo Largo</option><option>Campo Magro</option>
+            <option>Campo Mourão</option><option>Cândido de Abreu</option><option>Candói</option>
+            <option>Cantagalo</option><option>Capanema</option><option>Capitão Leônidas Marques</option>
+            <option>Carambeí</option><option>Carlópolis</option><option>Cascavel</option>
+            <option>Castro</option><option>Catanduvas</option><option>Céu Azul</option>
+            <option>Centenário do Sul</option><option>Cerro Azul</option><option>Chopinzinho</option>
+            <option>Cianorte</option><option>Cidade Gaúcha</option><option>Clevelândia</option>
+            <option>Colombo</option><option>Colorado</option><option>Congonhinhas</option>
+            <option>Conselheiro Mairinck</option><option>Contenda</option><option>Corbélia</option>
+            <option>Cornélio Procópio</option><option>Coronel Domingos Soares</option><option>Coronel Vivida</option>
+            <option>Corumbataí do Sul</option><option>Cruzeiro do Iguaçu</option><option>Cruzeiro do Oeste</option>
+            <option>Cruzeiro do Sul</option><option>Cruzmaltina</option><option>Curiúva</option>
+            <option>Curitiba</option><option>Diamante D'Oeste</option><option>Diamante do Norte</option>
+            <option>Diamante do Sul</option><option>Dois Vizinhos</option><option>Douradina</option>
+            <option>Doutor Camargo</option><option>Doutor Ulysses</option><option>Enéas Marques</option>
+            <option>Engenheiro Beltrão</option><option>Entre Rios do Oeste</option><option>Esperança Nova</option>
+            <option>Espigão Alto do Iguaçu</option><option>Faxinal</option><option>Farol</option>
+            <option>Fazenda Rio Grande</option><option>Fênix</option><option>Fernandes Pinheiro</option>
+            <option>Figueira</option><option>Flor da Serra do Sul</option><option>Floraí</option>
+            <option>Florestópolis</option><option>Floresta</option><option>Flórida</option>
+            <option>Formosa do Oeste</option><option>Foz do Iguaçu</option><option>Foz do Jordão</option>
+            <option>Francisco Alves</option><option>Francisco Beltrão</option><option>General Carneiro</option>
+            <option>Godoy Moreira</option><option>Goioerê</option><option>Goioxim</option>
+            <option>Grandes Rios</option><option>Guaíra</option><option>Guairaçá</option>
+            <option>Guamiranga</option><option>Guapirama</option><option>Guaporema</option>
+            <option>Guaraqueçaba</option><option>Guaratuba</option><option>Guaraci</option>
+            <option>Guaraniaçu</option><option>Guarapuava</option><option>Honório Serpa</option>
+            <option>Ibaiti</option><option>Ibema</option><option>Icaraíma</option>
+            <option>Iguaraçu</option><option>Iguatu</option><option>Imbau</option>
+            <option>Imbituva</option><option>Inácio Martins</option><option>Inajá</option>
+            <option>Indianópolis</option><option>Ipiranga</option><option>Iporã</option>
+            <option>Iracema do Oeste</option><option>Irati</option><option>Iretama</option>
+            <option>Itaguajé</option><option>Itaipulândia</option><option>Itambaracá</option>
+            <option>Itambé</option><option>Itaperuçu</option><option>Itapejara d'Oeste</option>
+            <option>Itaúna do Sul</option><option>Ivaí</option><option>Ivatuba</option>
+            <option>Ivaté</option><option>Ivaiporã</option><option>Jaboti</option>
+            <option>Jacarezinho</option><option>Jaguapitã</option><option>Jaguariaíva</option>
+            <option>Jandaia do Sul</option><option>Janiópolis</option><option>Japira</option>
+            <option>Japurá</option><option>Jardim Alegre</option><option>Jardim Olinda</option>
+            <option>Jataizinho</option><option>Jesuítas</option><option>Joaquim Távora</option>
+            <option>Jundiaí do Sul</option><option>Juranda</option><option>Jussara</option>
+            <option>Kaloré</option><option>Lapa</option><option>Laranjeiras do Sul</option>
+            <option>Laranjal</option><option>Leópolis</option><option>Lidianópolis</option>
+            <option>Lindoeste</option><option>Loanda</option><option>Lobato</option>
+            <option>Londrina</option><option>Lunardelli</option><option>Lupionópolis</option>
+            <option>Luiziana</option><option>Mallet</option><option>Mamborê</option>
+            <option>Mandaguaçu</option><option>Mandaguari</option><option>Mandirituba</option>
+            <option>Manfrinópolis</option><option>Manoel Ribas</option><option>Mangueirinha</option>
+            <option>Marialva</option><option>Maria Helena</option><option>Marilandía do Sul</option>
+            <option>Marilena</option><option>Mariluz</option><option>Maringá</option>
+            <option>Mariópolis</option><option>Maripá</option><option>Marmeleiro</option>
+            <option>Marquinho</option><option>Marumbi</option><option>Matelândia</option>
+            <option>Matinhos</option><option>Mato Rico</option><option>Mauá da Serra</option>
+            <option>Medianeira</option><option>Mercedes</option><option>Mirador</option>
+            <option>Miraselva</option><option>Missal</option><option>Moreira Sales</option>
+            <option>Morretes</option><option>Munhoz de Melo</option><option>Nova Aliança do Ivaí</option>
+            <option>Nova América da Colina</option><option>Nova Aurora</option><option>Nova Cantu</option>
+            <option>Nova Esperança</option><option>Nova Esperança do Sudoeste</option><option>Nova Fátima</option>
+            <option>Nova Laranjeiras</option><option>Nova Londrina</option><option>Nova Olímpia</option>
+            <option>Nova Prata do Iguaçu</option><option>Nova Santa Bárbara</option><option>Nova Santa Rosa</option>
+            <option>Nova Tebas</option><option>Novo Itacolomi</option><option>Nossa Senhora das Graças</option>
+            <option>Ortigueira</option><option>Ourizona</option><option>Ouro Verde do Oeste</option>
+            <option>Paiçandu</option><option>Palmas</option><option>Palmeira</option>
+            <option>Palmital</option><option>Palotina</option><option>Paraíso do Norte</option>
+            <option>Paranacity</option><option>Paranaguá</option><option>Paranapoema</option>
+            <option>Paranavaí</option><option>Pato Branco</option><option>Pato Bragado</option>
+            <option>Paula Freitas</option><option>Paulo Frontin</option><option>Peabiru</option>
+            <option>Perobal</option><option>Pérola</option><option>Pérola d'Oeste</option>
+            <option>Piên</option><option>Pinhal de São Bento</option><option>Pinhalão</option>
+            <option>Pinhais</option><option>Pinhão</option><option>Piraquara</option>
+            <option>Pitanga</option><option>Pitangueiras</option><option>Planaltina do Paraná</option>
+            <option>Planalto</option><option>Pontal do Paraná</option><option>Ponta Grossa</option>
+            <option>Porecatu</option><option>Porto Amazonas</option><option>Porto Barreiro</option>
+            <option>Porto Rico</option><option>Porto Vitória</option><option>Prado Ferreira</option>
+            <option>Pranchita</option><option>Presidente Castelo Branco</option><option>Primeiro de Maio</option>
+            <option>Prudentópolis</option><option>Quatiguá</option><option>Quatro Barras</option>
+            <option>Quatro Pontes</option><option>Quedas do Iguaçu</option><option>Querência do Norte</option>
+            <option>Quinta do Sol</option><option>Quitandinha</option><option>Ramilândia</option>
+            <option>Rancho Alegre</option><option>Rancho Alegre d'Oeste</option><option>Realeza</option>
+            <option>Rebouças</option><option>Renascença</option><option>Reserva</option>
+            <option>Reserva do Iguaçu</option><option>Ribeirão Claro</option><option>Ribeirão do Pinhal</option>
+            <option>Rio Azul</option><option>Rio Bom</option><option>Rio Bonito do Iguaçu</option>
+            <option>Rio Branco do Ivaí</option><option>Rio Branco do Sul</option><option>Rio Negro</option>
+            <option>Rolândia</option><option>Roncador</option><option>Rondon</option>
+            <option>Rosário do Ivaí</option><option>Sabáudia</option><option>Salgado Filho</option>
+            <option>Salto do Itararé</option><option>Salto do Lontra</option><option>Santa Amélia</option>
+            <option>Santa Cecília do Pavão</option><option>Santa Cruz de Monte Castelo</option>
+            <option>Santa Fé</option><option>Santa Helena</option><option>Santa Inês</option>
+            <option>Santa Isabel do Ivaí</option><option>Santa Izabel do Oeste</option><option>Santa Lúcia</option>
+            <option>Santa Maria do Oeste</option><option>Santa Mariana</option><option>Santa Mônica</option>
+            <option>Santa Tereza do Oeste</option><option>Santa Terezinha de Itaipu</option>
+            <option>Santana do Itararé</option><option>Santo Antônio da Platina</option>
+            <option>Santo Antônio do Caiuá</option><option>Santo Antônio do Paraíso</option>
+            <option>Santo Antônio do Sudoeste</option><option>Santo Inácio</option>
+            <option>São Carlos do Ivaí</option><option>São Jerônimo da Serra</option><option>São João</option>
+            <option>São João do Caiuá</option><option>São João do Ivaí</option><option>São João do Triunfo</option>
+            <option>São Jorge d'Oeste</option><option>São Jorge do Ivaí</option><option>São Jorge do Patrocínio</option>
+            <option>São José da Boa Vista</option><option>São José das Palmeiras</option><option>São José dos Pinhais</option>
+            <option>São Manoel do Paraná</option><option>São Mateus do Sul</option><option>São Miguel do Iguaçu</option>
+            <option>São Pedro do Iguaçu</option><option>São Pedro do Ivaí</option><option>São Pedro do Paraná</option>
+            <option>São Sebastião da Amoreira</option><option>São Tomé</option><option>Sapopema</option>
+            <option>Sarandi</option><option>Saudade do Iguaçu</option><option>Sengés</option>
+            <option>Sertaneja</option><option>Sertanópolis</option><option>Serranópolis do Iguaçu</option>
+            <option>Siqueira Campos</option><option>Sulina</option><option>Tamboara</option>
+            <option>Tamarana</option><option>Tapejara</option><option>Tapira</option>
+            <option>Teixeira Soares</option><option>Telêmaco Borba</option><option>Terra Boa</option>
+            <option>Terra Rica</option><option>Terra Roxa</option><option>Tibagi</option>
+            <option>Tijucas do Sul</option><option>Toledo</option><option>Tomazina</option>
+            <option>Três Barras do Paraná</option><option>Tunas do Paraná</option><option>Tuneiras do Oeste</option>
+            <option>Tupãssi</option><option>Turvo</option><option>Ubiratã</option>
+            <option>Umuarama</option><option>Uniflor</option><option>União da Vitória</option>
+            <option>Uraí</option><option>Ventania</option><option>Vera Cruz do Oeste</option>
+            <option>Verê</option><option>Virmond</option><option>Vitorino</option>
+            <option>Wenceslau Braz</option><option>Xambrê</option>
+          </select>
+        </label>
+        <label><span>NRE</span>
+          <input name="nre" readonly placeholder="Preenchido automaticamente" style="background:#f0f0f0;cursor:not-allowed" aria-describedby="nre-hint" aria-label="NRE — preenchido automaticamente ao selecionar o município">
+          <small id="nre-hint" style="display:none">Preenchido automaticamente conforme o município selecionado.</small>
+        </label>
+        <label class="wide"><span>Nome da escola *</span><input name="school" required placeholder="Nome completo da instituição"></label>
+        <label><span>Etapa de ensino *</span><select name="stage" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>EJA</option><option>Educação Especial</option></select></label>
+        <label><span>Quantidade de participantes *</span><input name="people" type="number" min="1" required placeholder="0"></label>
+        <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required aria-describedby="photo-hint"><small id="photo-hint">JPG ou PNG em orientação paisagem (horizontal). Evite imagens com dados pessoais.</small></label>
+        <label class="wide"><span>Primeiro tijolo mais citado *</span><input name="action1" required placeholder="Ex.: Oferecer mais de uma forma de registro nas atividades" aria-describedby="action1-hint"><small id="action1-hint">Descreva uma ação concreta que sua equipe se comprometeu a experimentar — pequena, viável e intencional.</small></label>
+        <label><span>Segundo tijolo mais citado</span><input name="action2" placeholder="Ex.: Ampliar as formas de participação oral"></label>
+        <label><span>Terceiro tijolo mais citado</span><input name="action3" placeholder="Ex.: Planejar com diferentes níveis de apoio"></label>
+        <label class="wide"><span>Relato inspirador (até 300 caracteres)</span><textarea name="story" maxlength="300" rows="4" placeholder="Compartilhe um momento marcante, uma fala da equipe ou uma ideia que ficou do encontro — algo que represente o compromisso da sua escola com a aprendizagem de todos."></textarea><small class="counter">0/300</small></label>
+        <label><span>Responsável pelo envio *</span><input name="owner" required></label>
+        <label><span>E-mail institucional *</span><input name="email" type="email" required placeholder="nome@escola.pr.gov.br"></label>
+      </div>
+      <label class="consent"><input type="checkbox" required aria-required="true"> <span>Confirmo que a imagem não contém dados pessoais e autorizo sua publicação institucional.</span></label>
+      <button class="button submit-button" type="submit">Enviar participação <span>↗</span></button>
+    </form>
+  </dialog>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada do mural" tabindex="-1" onclick="if(event.target===this)closeLightbox()" onkeydown="if(event.key==='Escape')closeLightbox()">
+    <div class="lb-box">
+      <button class="lb-close" onclick="closeLightbox()" aria-label="Fechar foto">×</button>
+      <img class="lb-img" src="" alt="">
+      <div class="lb-info">
+        <strong class="lb-school"></strong>
+        <span class="lb-meta"></span>
+        <p class="lb-action"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
