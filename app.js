@@ -911,7 +911,7 @@ const $ = (sel, root=document) => root.querySelector(sel);
 const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
 const format = v => new Intl.NumberFormat('pt-BR').format(v);
 function escapeHtml(v=''){const d=document.createElement('div');d.textContent=v;return d.innerHTML}
-function refresh(){updateStats();fillFilters();renderGallery();renderMap();renderDashboard();}
+function refresh(){updateStats();fillFilters();renderGallery();initScrollObserver();renderMap();renderDashboard();}
 
 /* ── 6. CARREGAR DO SHEETS ── */
 async function loadFromSheets() {
@@ -966,26 +966,54 @@ function fillFilters() {
   });
 }
 
-/* ── 10. GALERIA ── */
-function renderGallery() {
+/* ── 10. GALERIA com scroll infinito ── */
+const BATCH = 48;
+let visibleCount = BATCH;
+let filteredMurals = [];
+
+function renderGallery(reset = true) {
   const nre=$('#filter-nre').value, city=$('#filter-city').value, stage=$('#filter-stage').value;
-  const visible=murals
-    .filter(m=>(nre==='all'||m.nre===nre)&&(city==='all'||m.city===city)&&(stage==='all'||m.stage===stage))
-    .sort((a,b)=>Number(b.people)-Number(a.people));
-  $('#gallery-grid').innerHTML=visible.map(m=>`
-    <article class="mural-card" role="listitem" aria-label="${escapeHtml(m.school)}, ${escapeHtml(m.city)}, NRE ${escapeHtml(m.nre)}">
-      <div class="card-photo" style="background-color:var(--${m.color||'blue'})"
-        ${m.photo?`onclick="openLightbox('${m.photo.replace(/'/g,"\\'")}','${escapeHtml(m.school).replace(/'/g,"\\'")}','${escapeHtml(m.city).replace(/'/g,"\\'")}','${escapeHtml(m.nre).replace(/'/g,"\\'")}','${escapeHtml(m.action).replace(/'/g,"\\'")}','${format(m.people)}')" role="button" tabindex="0" aria-label="Ver foto ampliada do mural da ${escapeHtml(m.school)}" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()" style="cursor:pointer;background-color:var(--${m.color||'blue'})"`:''}>
-        ${m.photo?`<img src="${m.photo}" alt="Foto do mural da escola ${escapeHtml(m.school)}, de ${escapeHtml(m.city)}">`:'<span aria-hidden="true"></span>'}
-        <span aria-label="${format(m.people)} participantes">${format(m.people)} participantes</span>
-      </div>
-      <div class="card-body">
-        <span class="card-place">${escapeHtml(m.city)} · NRE ${escapeHtml(m.nre)}</span>
-        <h3>${escapeHtml(m.school)}</h3>
-        <div class="card-action"><small>Primeiro tijolo</small>"${escapeHtml(m.action)}"</div>
+  if (reset) {
+    visibleCount = BATCH;
+    filteredMurals = murals
+      .filter(m=>(nre==='all'||m.nre===nre)&&(city==='all'||m.city===city)&&(stage==='all'||m.stage===stage))
+      .sort((a,b)=>Number(b.people)-Number(a.people));
+  }
+  const slice = filteredMurals.slice(0, visibleCount);
+  $('#gallery-grid').innerHTML = slice.map(m=>`
+    <article class="mural-card" role="listitem"
+      aria-label="${escapeHtml(m.school)}, ${escapeHtml(m.city)}, NRE ${escapeHtml(m.nre)}"
+      ${m.photo ? `onclick="openLightbox('${m.photo.replace(/'/g,"\\'")}','${escapeHtml(m.school).replace(/'/g,"\\'")}','${escapeHtml(m.city).replace(/'/g,"\\'")}','${escapeHtml(m.nre).replace(/'/g,"\\'")}','${escapeHtml(m.action).replace(/'/g,"\\'")}','${format(m.people)}')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"` : ''}>
+      <div class="card-photo" style="background-color:var(--${m.color||'blue'})">
+        ${m.photo ? `<img src="${m.photo}" alt="Foto do mural da escola ${escapeHtml(m.school)}, de ${escapeHtml(m.city)}" loading="lazy">` : '<span aria-hidden="true"></span>'}
+        <div class="card-overlay" aria-hidden="true">
+          <span>${escapeHtml(m.school)}</span>
+          <span style="opacity:.75">${escapeHtml(m.city)} · ${format(m.people)} part.</span>
+        </div>
       </div>
     </article>`).join('');
-  $('#empty-state').hidden=visible.length>0;
+  $('#empty-state').hidden = filteredMurals.length > 0;
+}
+
+/* Sentinel para scroll infinito */
+let scrollObserver = null;
+function initScrollObserver() {
+  if (scrollObserver) scrollObserver.disconnect();
+  const sentinel = document.createElement('div');
+  sentinel.id = 'gallery-sentinel';
+  sentinel.style.height = '1px';
+  const grid = $('#gallery-grid');
+  grid.after(sentinel);
+  scrollObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && visibleCount < filteredMurals.length) {
+      visibleCount += BATCH;
+      renderGallery(false);
+      // Reposicionar sentinel após novo render
+      const newSentinel = document.getElementById('gallery-sentinel');
+      if (newSentinel) scrollObserver.observe(newSentinel);
+    }
+  }, { rootMargin: '200px' });
+  scrollObserver.observe(sentinel);
 }
 
 /* ── LIGHTBOX ── */
@@ -1115,8 +1143,8 @@ $('.dialog-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 $('.menu-toggle').addEventListener('click',e=>{const open=$('#menu').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',open)});
 $$('#menu a').forEach(a=>a.addEventListener('click',()=>$('#menu').classList.remove('open')));
-$$('#filter-nre,#filter-city,#filter-stage').forEach(s=>s.addEventListener('change',renderGallery));
-$('#clear-filters').addEventListener('click',()=>{$$('.filters select').forEach(s=>s.value='all');renderGallery()});
+$$('#filter-nre,#filter-city,#filter-stage').forEach(s=>s.addEventListener('change',()=>{renderGallery(true);initScrollObserver();}));
+$('#clear-filters').addEventListener('click',()=>{$$('.filters select').forEach(s=>s.value='all');renderGallery(true);initScrollObserver();});
 $('[name="story"]').addEventListener('input',e=>$('.counter').textContent=`${e.target.value.length}/300`);
 $$('[data-placeholder]').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();showToast('Material pronto para receber o link oficial.')}));
 
