@@ -1025,14 +1025,30 @@ function openLightbox(photo, school, city, nre, action, people) {
   lb.querySelector('.lb-meta').textContent = `${city} · NRE ${nre} · ${people} participantes`;
   lb.querySelector('.lb-action').textContent = `"${action}"`;
   lb.removeAttribute('hidden');
-  lb.focus();
+  lb.querySelector('.lb-close').focus();
   document.body.style.overflow = 'hidden';
+
+  // Trap de foco dentro do lightbox
+  lb._trapFocus = function(e) {
+    if (e.key === 'Escape') { closeLightbox(); return; }
+    if (e.key !== 'Tab') return;
+    const focusable = lb.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  };
+  lb.addEventListener('keydown', lb._trapFocus);
 }
 
 function closeLightbox() {
   const lb = document.getElementById('lightbox');
   lb.setAttribute('hidden', '');
   document.body.style.overflow = '';
+  if (lb._trapFocus) lb.removeEventListener('keydown', lb._trapFocus);
 }
 
 /* ── 11. DASHBOARD ── */
