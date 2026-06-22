@@ -2914,6 +2914,15 @@ function getCityLatLng(cityName) {
     : [-25.4290,-51.2700];
 }
 
+// Retorna coordenadas exatas da escola pelo nome (do INEP)
+function getSchoolLatLng(schoolName) {
+  if (!schoolName || !SCHOOL_LIST) return null;
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+  const k = norm(schoolName);
+  const found = SCHOOL_LIST.find(e => norm(e[0]) === k);
+  return found && found[2] ? [found[2], found[3]] : null;
+}
+
 function getNRE(cityName) {
   const normalized = cityName
     .trim()
@@ -2924,14 +2933,7 @@ function getNRE(cityName) {
 }
 
 /* ── 3. DADOS DE EXEMPLO ── */
-const seedMurals = [
-  {id:1,school:'Colégio Estadual do Paraná',city:'Curitiba',nre:'Curitiba',stage:'Ensino Médio',people:64,action:'Ampliar as formas de expressão da aprendizagem.',actions:['Expressão','Acessibilidade','Escuta'],color:'blue'},
-  {id:2,school:'Colégio Estadual Vicente Rijo',city:'Londrina',nre:'Londrina',stage:'Ensino Médio',people:38,action:'Criar momentos de escuta ativa com os estudantes.',actions:['Escuta','Acolhimento','Autonomia'],color:'yellow'},
-  {id:3,school:'C.E. Regente Feijó',city:'Ponta Grossa',nre:'Ponta Grossa',stage:'Ensino Médio',people:42,action:'Planejar experiências com diferentes níveis de apoio.',actions:['Inclusão','Colaboração','Acessibilidade'],color:'coral'},
-  {id:4,school:'C.E. Wilson Joffre',city:'Cascavel',nre:'Cascavel',stage:'Ensino Fundamental',people:31,action:'Fortalecer o pertencimento por meio de projetos coletivos.',actions:['Pertencimento','Colaboração','Escuta'],color:'yellow'},
-  {id:5,school:'C.E. Francisco Carneiro Martins',city:'Guarapuava',nre:'Guarapuava',stage:'Ensino Médio',people:27,action:'Oferecer escolhas para que cada estudante participe.',actions:['Autonomia','Inclusão','Expressão'],color:'blue'},
-  {id:6,school:'C.E. Monteiro Lobato',city:'Foz do Iguaçu',nre:'Foz do Iguaçu',stage:'EJA',people:25,action:'Conectar o currículo às histórias e aos territórios.',actions:['Acolhimento','Equidade','Pertencimento'],color:'coral'}
-];
+const seedMurals = [];
 
 const COLORS = ['blue','yellow','coral'];
 let murals = [...seedMurals];
