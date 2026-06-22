@@ -323,7 +323,13 @@
           <input name="nre" readonly placeholder="Preenchido automaticamente" style="background:#f0f0f0;cursor:not-allowed" aria-describedby="nre-hint" aria-label="NRE — preenchido automaticamente ao selecionar o município">
           <small id="nre-hint" style="display:none">Preenchido automaticamente conforme o município selecionado.</small>
         </label>
-        <label class="wide"><span>Nome da escola *</span><input name="school" required placeholder="Nome completo da instituição"></label>
+        <label class="wide"><span>Nome da escola *</span>
+          <div class="autocomplete-wrap">
+            <input name="school" id="school-input" required placeholder="Digite o nome da escola..." autocomplete="off" aria-label="Nome da escola" aria-describedby="school-hint" oninput="filterSchools(this.value)" onblur="hideSchoolList()" onkeydown="handleSchoolKey(event)">
+            <ul id="school-list" class="autocomplete-list" role="listbox" aria-label="Sugestões de escolas" hidden></ul>
+          </div>
+          <small id="school-hint">Digite pelo menos 3 letras para ver sugestões. Se sua escola não aparecer, continue digitando o nome completo.</small>
+        </label>
         <label><span>Etapa de ensino *</span><select name="stage" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>EJA</option><option>Educação Especial</option></select></label>
         <label><span>Quantidade de participantes *</span><input name="people" type="number" min="1" required placeholder="0"></label>
         <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required aria-describedby="photo-hint"><small id="photo-hint">JPG ou PNG em orientação paisagem (horizontal). Evite imagens com dados pessoais.</small></label>
