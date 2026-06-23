@@ -87,7 +87,7 @@
       <div class="filters reveal" aria-label="Filtros da galeria">
         <label><span>NRE</span><select id="filter-nre"><option value="all">Todos os NRE</option></select></label>
         <label><span>Município</span><select id="filter-city"><option value="all">Todos os municípios</option></select></label>
-        <label><span>Etapa</span><select id="filter-stage"><option value="all">Todas as etapas</option></select></label>
+        
         <button id="clear-filters" type="button">Limpar filtros</button>
       </div>
       <div class="gallery-grid" id="gallery-grid" role="list" aria-live="polite" aria-label="Galeria de murais das escolas participantes"></div>
@@ -330,7 +330,7 @@
           </div>
           <small id="school-hint">Digite pelo menos 3 letras para ver sugestões. Se sua escola não aparecer, continue digitando o nome completo.</small>
         </label>
-        <label><span>Etapa de ensino *</span><select name="stage" required><option value="">Selecione</option><option>Ensino Fundamental</option><option>Ensino Médio</option><option>EJA</option><option>Educação Especial</option></select></label>
+        
         <label><span>Quantidade de participantes *</span><input name="people" type="number" min="1" required placeholder="0"></label>
         <label class="wide file-field"><span>Foto do mural *</span><input name="photo" type="file" accept="image/*" required aria-describedby="photo-hint"><small id="photo-hint">JPG ou PNG em orientação paisagem (horizontal). Evite imagens com dados pessoais.</small></label>
         <label class="wide"><span>Primeiro tijolo mais citado *</span><input name="action1" required placeholder="Ex.: Oferecer mais de uma forma de registro nas atividades" aria-describedby="action1-hint"><small id="action1-hint">Descreva uma ação concreta que sua equipe se comprometeu a experimentar — pequena, viável e intencional.</small></label>

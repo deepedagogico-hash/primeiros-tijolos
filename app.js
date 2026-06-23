@@ -3107,7 +3107,7 @@ async function loadFromSheets() {
     if (!Array.isArray(data) || data.length === 0) return;
     const sheetMurals = data.map((row, i) => ({
       id: row.id||Date.now()+i, school: row.school||'', city: row.city||'',
-      nre: row.nre||getNRE(row.city)||'', stage: row.stage||'',
+      nre: row.nre||getNRE(row.city)||'',
       people: Number(row.people)||0, action: row.action||'',
       actions: Array.isArray(row.actions)?row.actions:(row.actions||'').split('|').filter(Boolean),
       story: row.story||'', photo: row.photo||'', color: COLORS[i%COLORS.length]
@@ -3142,7 +3142,7 @@ function updateStats() {
 
 /* ── 9. FILTROS ── */
 function fillFilters() {
-  [['filter-nre','nre'],['filter-city','city'],['filter-stage','stage']].forEach(([id,key])=>{
+  [['filter-nre','nre'],['filter-city','city']].forEach(([id,key])=>{
     const sel=$(`#${id}`), cur=sel.value;
     [...new Set(murals.map(m=>m[key]))].sort().forEach(v=>{
       if(![...sel.options].some(o=>o.value===v)) sel.add(new Option(v,v));
@@ -3157,11 +3157,11 @@ let visibleCount = BATCH;
 let filteredMurals = [];
 
 function renderGallery(reset = true) {
-  const nre=$('#filter-nre').value, city=$('#filter-city').value, stage=$('#filter-stage').value;
+  const nre=$('#filter-nre').value, city=$('#filter-city').value;
   if (reset) {
     visibleCount = BATCH;
     filteredMurals = murals
-      .filter(m=>(nre==='all'||m.nre===nre)&&(city==='all'||m.city===city)&&(stage==='all'||m.stage===stage))
+      .filter(m=>(nre==='all'||m.nre===nre)&&(city==='all'||m.city===city))
       .sort((a,b)=>Number(b.people)-Number(a.people));
   }
   const slice = filteredMurals.slice(0, visibleCount);
@@ -3344,7 +3344,7 @@ $('.dialog-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 $('.menu-toggle').addEventListener('click',e=>{const open=$('#menu').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',open)});
 $$('#menu a').forEach(a=>a.addEventListener('click',()=>$('#menu').classList.remove('open')));
-$$('#filter-nre,#filter-city,#filter-stage').forEach(s=>s.addEventListener('change',()=>{renderGallery(true);initScrollObserver();}));
+$$('#filter-nre,#filter-city').forEach(s=>s.addEventListener('change',()=>{renderGallery(true);initScrollObserver();}));
 $('#clear-filters').addEventListener('click',()=>{$$('.filters select').forEach(s=>s.value='all');renderGallery(true);initScrollObserver();});
 $('[name="story"]').addEventListener('input',e=>$('.counter').textContent=`${e.target.value.length}/300`);
 $$('[data-placeholder]').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();showToast('Material pronto para receber o link oficial.')}));
@@ -3375,14 +3375,14 @@ $('#mural-form').addEventListener('submit', async event=>{
     const photo=file?await toBase64(file):'';
     const result=await sendToSheets({
       school:data.school, city:data.city, nre:data.nre||getNRE(data.city),
-      stage:data.stage, people:data.people, action1:data.action1,
+      people:data.people, action1:data.action1,
       action2:data.action2, action3:data.action3, story:data.story,
       owner:data.owner, email:data.email, photo
     });
     const photoUrl=result.photoUrl||photo;
     murals.unshift({
       id:Date.now(), school:data.school, city:data.city,
-      nre:data.nre||getNRE(data.city), stage:data.stage,
+      nre:data.nre||getNRE(data.city),
       people:Number(data.people), action:data.action1,
       actions:[data.action1,data.action2,data.action3].filter(Boolean),
       story:data.story, photo:photoUrl, color:COLORS[Math.floor(Math.random()*COLORS.length)]
